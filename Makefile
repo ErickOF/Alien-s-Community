@@ -1,6 +1,6 @@
 .PONY: install
 
-GUI=gui
+MAIN=main
 ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog -lallegro_color -lallegro_image -lallegro
 
 install:
@@ -14,7 +14,7 @@ install:
 		liballegro-physfs5-dev
 
 build:
-	@gcc ${GUI}.c -o ${GUI}.o ${ALLEGRO_FLAGS}
+	@gcc ${MAIN}.c -o ${MAIN}.o ${ALLEGRO_FLAGS}
 
 run:
-	@./{GUI}.o
+	@./{MAIN}.o
