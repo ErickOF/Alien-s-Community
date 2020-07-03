@@ -1,10 +1,9 @@
 .PONY: install
 
 GUI=gui
+ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog -lallegro_color -lallegro_image -lallegro
 
 install:
-	# Add repository
-	sudo add-apt-repository ppa:allegro/5.2
 	# Update
 	sudo apt update
 	# The core library.
@@ -15,7 +14,7 @@ install:
 		liballegro-physfs5-dev
 
 build:
-	@gcc -o ${GUI}.o ${GUI}.c
+	@gcc ${GUI}.c -o ${GUI}.o ${ALLEGRO_FLAGS}
 
 run:
 	@./{GUI}.o
