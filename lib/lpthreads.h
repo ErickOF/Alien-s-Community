@@ -1,0 +1,5 @@
+#ifndef PROJECT2_LIB_LPTHREAD_H
+
+
+
+#endif /* PROJECT2_LIB_LPTHREAD_H */

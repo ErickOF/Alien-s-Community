@@ -1,0 +1,6 @@
+lenght:0
+max_weight:0
+algorithm:survival
+calendar:fifo
+max_alien_nord:10
+max_alien_south:10

@@ -1,4 +1,5 @@
-#ifndef PROJECT2_LIBS_GUI_CONSTANTS_H
+#ifndef PROJECT2_GUI_GUI_CONSTANTS_H
+#define PROJECT2_GUI_GUI_CONSTANTS_H
 
 
 // Boolean values
@@ -20,4 +21,4 @@ static const char* IMG_COMMUNITY_A_HOUSE_PATH = "gui/src/imgs/community_b_house.
 static const char* IMG_COMMUNITY_B_HOUSE_PATH = "gui/src/imgs/community_b_house.png";
 
 
-#endif /* PROJECT2_LIBS_GUI_CONSTANTS_H */
+#endif /* PROJECT2_GUI_GUI_CONSTANTS_H */
