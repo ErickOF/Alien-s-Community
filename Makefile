@@ -1,9 +1,15 @@
-.PONY: install
+.PONY: install thread_test
 
 MAIN=main
 GUI=gui/gui
 APP=app
 ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog -lallegro_color -lallegro_image -lallegro
+
+
+LPTHREADS=lpthreads
+THREADS_TEST=thread_test
+BUILD_FOLDER=bin
+
 
 install:
 	# Update
@@ -20,6 +26,12 @@ build:
 	@gcc -c ${MAIN}.c -o ${MAIN}.o ${ALLEGRO_FLAGS}
 	@gcc -o ${APP} ${GUI}.o ${MAIN}.o ${ALLEGRO_FLAGS}
 	@rm ${GUI}.o ${MAIN}.o
+
+thread_test:
+	#@gcc -c lib/${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
+	@gcc -c ${THREADS_TEST}.c -o ${BUILD_FOLDER}/${THREADS_TEST}
+	@./${BUILD_FOLDER}/${THREADS_TEST}
+
 
 run:
 	@./{MAIN}.o
