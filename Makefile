@@ -29,7 +29,7 @@ build:
 
 thread_test:
 	#@gcc -c lib/${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
-	@gcc -c ${THREADS_TEST}.c -o ${BUILD_FOLDER}/${THREADS_TEST}
+	@gcc ${THREADS_TEST}.c -o ${BUILD_FOLDER}/${THREADS_TEST}
 	@./${BUILD_FOLDER}/${THREADS_TEST}
 
 
