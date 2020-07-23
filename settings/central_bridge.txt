@@ -1,4 +1,4 @@
-lenght:0
+length:0
 max_weight:0
 algorithm:y_algorithm
 calendar:fifo

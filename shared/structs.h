@@ -1,4 +1,5 @@
 #ifndef PROJECT2_SHARED_STRUCTS_H
+#define PROJECT2_SHARED_STRUCTS_H
 
 /**
  * This struct represents a generic alien.
@@ -30,7 +31,7 @@
  * float weight - alien weight.
  * 
  */
-struct Alien {
+struct alien {
     // (x, y)
     int position[2];
     float speed;
@@ -39,10 +40,39 @@ struct Alien {
     short type;
     short status;
     float weight;
-};
+} typedef Alien;
 
+/**
+ * Struct used to represent an Alien Data.
+ * 
+ * float speed - alien speed.
+ * float execution_time - since creation to destruction.
+ * float weight - alien weight.
+ * 
+ */
+struct alien_data {
+    float speed;
+    float execution_time;
+    float weight;
+} typedef AlienData;
 
-struct Bridge {
+/**
+ * Struct used to represent a Bridge.
+ * 
+ * int position[2] - bridge position.
+ * float current_weight - current weight on the bridge.
+ * float max_weight - max weight supported by the bridge.
+ * int lenght
+ * int south_aliens - current number of alien in the south.
+ * int nord_aliens - current number of aliens in the nord.
+ * int max_south_aliens - max number of alien in the south.
+ * int max_nord_aliens - max number of aliens in the nord
+ * void* algorithm - calendarization algorithm.
+ * void* calendar - calendar type.
+ * int direction - current bridge direction.
+ * 
+ */
+struct bridge {
     // (x, y)
     short position;
     float current_weight;
@@ -50,8 +80,31 @@ struct Bridge {
     int lenght;
     int south_aliens;
     int nord_aliens;
+    int max_south_aliens;
+    int max_nord_aliens;
     void* algorithm;
+    void* calendar;
     int direction;
-};
+} typedef Bridge;
+
+/**
+ * Struct to represent a Bridge Data.
+ * 
+ * float max_weight - max weight supported by the bridge.
+ * int max_south_aliens - max number of alien in the south.
+ * int max_nord_aliens - max number of aliens in the nord.
+ * char* algorithm - name of the calendarization algorithm.
+ * char* calendar - calendar type name.
+ * 
+ */
+struct bridge_data {
+    int lenght;
+    float max_weight;
+    int max_south_aliens;
+    int max_nord_aliens;
+    char* algorithm;
+    char* calendar;
+} typedef BridgeData;
+
 
 #endif /* PROJECT2_SHARED_STRUCTS_H */

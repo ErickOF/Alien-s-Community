@@ -2,6 +2,7 @@
 
 MAIN=main
 GUI=gui/gui
+TOOLS=shared/tools
 APP=app
 ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog -lallegro_color -lallegro_image -lallegro
 
@@ -23,8 +24,9 @@ install:
 
 build:
 	@gcc -c ${GUI}.c -o ${GUI}.o ${ALLEGRO_FLAGS}
+	@gcc -c ${TOOLS}.c -o ${TOOLS}.o ${ALLEGRO_FLAGS}
 	@gcc -c ${MAIN}.c -o ${MAIN}.o ${ALLEGRO_FLAGS}
-	@gcc -o ${APP} ${GUI}.o ${MAIN}.o ${ALLEGRO_FLAGS}
+	@gcc -o ${APP} ${GUI}.o ${MAIN}.o ${TOOLS}.o ${ALLEGRO_FLAGS}
 	@rm ${GUI}.o ${MAIN}.o
 
 thread_test:
