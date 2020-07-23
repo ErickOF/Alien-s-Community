@@ -34,7 +34,6 @@ void* allocate_mem(size_t size){
 }
 
 
-
 /**
  *  This function uses clone system call to create a thread and manages errors
  * 

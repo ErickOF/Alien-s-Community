@@ -5,55 +5,15 @@
 #include <linux/sched.h>
 
 #include <stdlib.h>
-#include <semaphore.h>
+
+
+#include "lpthreads_thread.h"
+#include "lpthreads_mutex.hpp"
 
 
 
 
-// Define thread attributes
-const int STACK_SIZE = 65536;
-typedef struct lpthread_attr 
-{
-	int	    flags;
 
-	void*   stackaddr_attr;
-
-	size_t  stacksize_attr;
-} lpthread_attr_t;
-
-
-// Define posible stated of the thread
-enum lpthread_state
-{
-    RUNNING,
-    DEAD,
-    EXITING,
-    SLEEPING,
-    JOINING
-};
-
-// Define lpthread structure
-typedef struct lpthread
-{
-    pid_t                   thread_id;
-
-    enum lpthread_state     state;
-
-    struct lpthread_attr    attributes;
-
-    unsigned short          isDettached;
-
-} lpthread_t;
-
-// Define a mutex as a semaphore
-#define MUTEX_NAME_LEN 10
-typedef struct lpthread_mutex{
-
-    char mutex_name[MUTEX_NAME_LEN];
-
-    sem_t mutex;
-
-} lpthread_mutex_t;
 
 
 // Define manager thread
@@ -62,14 +22,14 @@ lpthread_t manager_thread;
 
     MAX_THREADS:            Defines the maximum available threads
 
-    size_t latest_entry:    Defines the lowest free thread position
+    short isInitialized:    Defines if the array is initialized
 
-    lpthread_t threads:     Array of lpthreads with size MAX_THREADS
+    pid_t threads:          Array with the unkilled threads
 
  */
 #define MAX_THREADS 100
-size_t latest_entry = 0;
-lpthread_t threads[MAX_THREADS]; 
+short isInitialized = 0;
+pid_t threads[MAX_THREADS]; 
 
 
 
@@ -78,24 +38,28 @@ const int clone_flags = CLONE_VM;
 
 
 // Create thread function
-int Lthread_create( lpthread_t** lpthread_ptr,
+pid_t Lthread_create(lpthread_t** lpthread_ptr,
                     lpthread_attr_t** lpthread_attr, 
                     int (*target_function) (void*), 
                     void* args);
 
 // Kills the desired thread
-int Lthread_end(lpthread_t* lpthread_ptr);
+pid_t Lthread_end(lpthread_t* lpthread_ptr);
 
 // Yield back thread
 // TODO: USE A SLEEP TO FORCE CONTEXT SWITCH
 int Lthread_yield();
 
-
+int sannity_check();
 int Lthread_join();
 int Lthread_detach();
-int Lmutex_init();
-int Lmutex_destroy();
-int Lmutex_unlock();
-int Lmutex_trylock();
+int Lmutex_init(lpthread_mutex_t** mutex, lpthread_mutex_attr_t** attributes);
+int Lmutex_destroy(lpthread_mutex_t* mutex);
+int Lmutex_unlock(lpthread_mutex_t* mutex);
+int Lmutex_trylock(lpthread_mutex_t* mutex);
+
+
+void add_thread(pid_t target);
+void remove_thread(pid_t target);
 
 #endif /* PROJECT2_LIB_LPTHREAD_H */
