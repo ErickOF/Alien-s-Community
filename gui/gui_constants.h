@@ -19,6 +19,9 @@ static const float FPS_HIGHLIGHT = 2.5;
 // Images paths
 static const char* IMG_COMMUNITY_A_HOUSE_PATH = "gui/src/imgs/community_b_house.png";
 static const char* IMG_COMMUNITY_B_HOUSE_PATH = "gui/src/imgs/community_b_house.png";
+static const char* IMG_NORMAL_ALIEN = "gui/src/imgs/normal_alien.png";
+static const char* IMG_ALPHA_ALIEN = "gui/src/imgs/normal_alien.png";
+static const char* IMG_BETA_ALIEN = "gui/src/imgs/normal_alien.png";
 
 
 #endif /* PROJECT2_GUI_GUI_CONSTANTS_H */

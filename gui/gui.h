@@ -13,20 +13,23 @@
 
 
 // Game Screen
-ALLEGRO_DISPLAY *display;
+ALLEGRO_DISPLAY* display;
 // Event Queue detected
-ALLEGRO_EVENT_QUEUE *event_queue;
+ALLEGRO_EVENT_QUEUE* event_queue;
 
 // Timers
-ALLEGRO_TIMER *timer;
+ALLEGRO_TIMER* timer;
 
 
 // Indicates if the game is running
 int play;
 
 // Images
-ALLEGRO_BITMAP *img_community_a_house;
-ALLEGRO_BITMAP *img_community_b_house;
+ALLEGRO_BITMAP* img_community_a_house;
+ALLEGRO_BITMAP* img_community_b_house;
+ALLEGRO_BITMAP* img_alpha_alien;
+ALLEGRO_BITMAP* img_beta_alien;
+ALLEGRO_BITMAP* img_normal_alien;
 
 
 /**

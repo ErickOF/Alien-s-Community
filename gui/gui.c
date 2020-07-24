@@ -7,6 +7,7 @@
 void load_imgs() {
 	img_community_a_house = al_load_bitmap(IMG_COMMUNITY_A_HOUSE_PATH);
     img_community_b_house = al_load_bitmap(IMG_COMMUNITY_B_HOUSE_PATH);
+    img_normal_alien = al_load_bitmap(IMG_NORMAL_ALIEN);
 }
 
 /**
@@ -113,6 +114,10 @@ void destroy_all() {
     al_destroy_timer(timer);
 
     al_uninstall_keyboard();
+
+	al_destroy_bitmap(img_community_a_house);
+    al_destroy_bitmap(img_community_b_house);
+    al_destroy_bitmap(img_normal_alien);
 }
 
 /**
