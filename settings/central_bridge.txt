@@ -1,6 +1,6 @@
-lenght:0
+length:0
 max_weight:0
 algorithm:y_algorithm
 calendar:fifo
-max_alien_nord:10
-max_alien_south:10
+max_nord_aliens:10
+max_south_aliens:10
