@@ -77,7 +77,7 @@ struct bridge {
     short position;
     float current_weight;
     float max_weight;
-    int lenght;
+    int length;
     int south_aliens;
     int nord_aliens;
     int max_south_aliens;
@@ -98,7 +98,7 @@ struct bridge {
  * 
  */
 struct bridge_data {
-    int lenght;
+    int length;
     float max_weight;
     int max_south_aliens;
     int max_nord_aliens;
@@ -106,5 +106,20 @@ struct bridge_data {
     char* calendar;
 } typedef BridgeData;
 
+/**
+ * Struct to represen a Alien Spawner.
+ *
+ * float mean - distribution mean.
+ * float alpha - percentage of alpha aliens.
+ * float beta - percentage of beta aliens.
+ * float normal - percentage of normal aliens.
+ * 
+ */
+struct alien_spawner {
+    float mean;
+    float alpha;
+    float beta;
+    float normal;
+} typedef AlienSpawner;
 
 #endif /* PROJECT2_SHARED_STRUCTS_H */

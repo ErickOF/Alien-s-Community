@@ -2,7 +2,4 @@
 #define PROJECT2_SHARED_CONSTANTS_H
 
 
-const int MAX_FILE_SIZE = 1024;
-
-
 #endif /* PROJECT2_SHARED_CONSTANTS_H */
