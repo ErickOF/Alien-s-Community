@@ -13,10 +13,10 @@ void hey(){
 
     sleep(1);
 
-    while(1){
-        printf("Hey its me child pid %i, am alive\n", getpid());
-        sleep(1);
-    }
+    
+    printf("Hey its me child pid %i, am alive\n", getpid());
+    sleep(1);
+    printf("Now im gonna die\n");
 
 }
 
@@ -35,7 +35,7 @@ void no_mutex_count(){
         printf("%i\n", pid);
         sleep(1);
     }
-    printf("Doneee \n\n");
+    printf("Done \n\n");
 
 }
 
@@ -55,29 +55,22 @@ void mutex_count(lpthread_mutex_t* mutex){
         printf("%i\n", pid);
         sleep(1);
     }
-    printf("Doneee \n\n");
+    printf("Done \n\n");
     Lmutex_unlock(mutex);
 
 }
 
 
 
-void creation_kill_test(){
+void creation_test(){
     
     printf("\n\n ------- Now testing creation and killing ------ \n\n");
     lpthread_t* thread;
-    int child_pid = Lthread_create(&thread, NULL, hey, NULL);
+    int child_pid = Lthread_create(&thread, NULL, &hey, NULL);
 
     printf( "Hey its me parent, the returned pid was %i and my pid is %i, gonna sleep for a while\n", 
             child_pid, getpid());
     sleep(5);
-
-    printf("Now am gonna do what is called a pro-gamer move, kill my child and then sleep\n");
-    if(Lthread_end(thread) == child_pid){
-        printf("Looks like it worked\n");
-    }
-
-    sleep(1);
 
     printf("My time has come my friend, its been a good ride, see ya\n");
 
@@ -94,12 +87,12 @@ void mutex_test(){
     Lmutex_init(&mutex, NULL);
 
     // Launch non mutex threads
-    printf("Thread 1 created with pid %i\n", Lthread_create(&thread1, NULL, no_mutex_count, NULL));
-    printf("Thread 2 created with pid %i\n", Lthread_create(&thread2, NULL, no_mutex_count, NULL));
+    printf("Thread 1 created with pid %i\n", Lthread_create(&thread1, NULL, &no_mutex_count, NULL));
+    printf("Thread 2 created with pid %i\n", Lthread_create(&thread2, NULL, &no_mutex_count, NULL));
 
     sleep(6);
     // Launch mutex threads
-    printf("Thread 1 created with pid %i\n", Lthread_create(&thread1, NULL, mutex_count, mutex));
+    printf("Thread 1 created with pid %i\n", Lthread_create(&thread1, NULL, &mutex_count, mutex));
     printf("Thread 2 created with pid %i\n", Lthread_create(&thread2, NULL, mutex_count, mutex));
 
     sleep(12);

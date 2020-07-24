@@ -11,6 +11,19 @@
 #define FALSE 0
 #define TRUE 1
 
+
+
+// Structure to pass multiple arguments to the clone function 
+// and wrap it to call lpthread_end when execution has finished
+typedef struct lpthreads_arguments
+{
+    int (*target_function) (void*);
+    void* fnctn_args;
+} lpthreads_arguments_t;
+
+
+
+
 // Functions
 /**
  *  This function manages errors on memory allocation

@@ -4,6 +4,6 @@
 
 int main(){
 
-    creation_kill_test();    
+    creation_test();    
     mutex_test();
 }
