@@ -42,6 +42,7 @@ bridge_test:
 	@gcc -o ${BRIDGE_TEST} ${BRIDGE_TEST}.o ${BRIDGE_ALGORITHMS}.o
 	@rm ${BRIDGE_ALGORITHMS}.o ${BRIDGE_TEST}.o
 	@./${BRIDGE_TEST}
+	@rm ${BRIDGE_TEST}
 
 run:
 	@./${APP}
