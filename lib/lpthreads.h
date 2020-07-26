@@ -7,8 +7,10 @@
 #include <stdlib.h>
 
 
+
 #include "lpthreads_thread.h"
 #include "lpthreads_mutex.hpp"
+#include "lpthreads_tools.hpp"
 
 
 
@@ -29,13 +31,16 @@ lpthread_t manager_thread;
  */
 #define MAX_THREADS 100
 short isInitialized = 0;
-pid_t threads[MAX_THREADS]; 
+pid_t threads_pid[MAX_THREADS];
+lpthread_t* threads_ptr[MAX_THREADS]; 
 
 
 
 // Clone flags
 const int clone_flags = CLONE_VM;
 
+// Mantain the system coherent and safe :)
+int sannity_check();
 
 // Create thread function
 pid_t Lthread_create(lpthread_t** lpthread_ptr,
@@ -43,23 +48,33 @@ pid_t Lthread_create(lpthread_t** lpthread_ptr,
                     int (*target_function) (void*), 
                     void* args);
 
-// Kills the desired thread
-pid_t Lthread_end(lpthread_t* lpthread_ptr);
+// Exit the process and set the thread as ready to join
+void Lthread_end(struct lpthreads_arguments* clone_args);
 
 // Yield back thread
-// TODO: USE A SLEEP TO FORCE CONTEXT SWITCH
 int Lthread_yield();
 
-int sannity_check();
-int Lthread_join();
-int Lthread_detach();
+// Wait for all the joinable threads to terminate
+int Lthread_join(lpthread_t* lpthread_ptr);
+
+// Make a thread un-joinable
+int Lthread_detach(lpthread_t* lpthread_ptr);
+
+// Initialize a mutex
 int Lmutex_init(lpthread_mutex_t** mutex, lpthread_mutex_attr_t** attributes);
+
+// Destroy a mutex
 int Lmutex_destroy(lpthread_mutex_t* mutex);
+
+// Unlock a mutex
 int Lmutex_unlock(lpthread_mutex_t* mutex);
+
+// Lock a mutex
 int Lmutex_trylock(lpthread_mutex_t* mutex);
 
 
-void add_thread(pid_t target);
-void remove_thread(pid_t target);
+void add_thread(pid_t target, lpthread_t** lpthread_ptr);
+size_t search_target_pid(pid_t pid);
+
 
 #endif /* PROJECT2_LIB_LPTHREAD_H */

@@ -20,10 +20,8 @@ typedef struct lpthread_attr
 enum lpthread_state
 {
     RUNNING,
-    DEAD,
-    EXITING,
-    SLEEPING,
-    JOINING
+    FINISHED,
+    DETACHED
 };
 
 // Define lpthread structure
@@ -34,8 +32,6 @@ typedef struct lpthread
     enum lpthread_state     state;
 
     lpthread_attr_t*        attributes;
-
-    unsigned short          isDettached;
 
 } lpthread_t;
 
