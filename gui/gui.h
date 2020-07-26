@@ -11,6 +11,7 @@
 
 #include "gui_constants.h"
 #include "../shared/structs.h"
+#include "../shared/tools.h"
 
 
 // Game Screen
@@ -19,7 +20,7 @@ ALLEGRO_DISPLAY* display;
 ALLEGRO_EVENT_QUEUE* event_queue;
 
 // Timers
-ALLEGRO_TIMER* timer;
+ALLEGRO_TIMER* timer_update;
 
 // Images
 ALLEGRO_BITMAP* img_community_a_house;
@@ -34,6 +35,7 @@ ALLEGRO_COLOR bridge_color;
 ALLEGRO_COLOR normal_alien_color;
 ALLEGRO_COLOR road_color;
 ALLEGRO_COLOR street_color;
+
 
 // Indicates if the game is running
 int play;
@@ -61,14 +63,34 @@ void destroy_all();
 void draw_map();
 
 /**
+ * This function draw the aliens matrix.
+ */
+void draw_alien_matrix();
+
+/**
  * This function updates the main window
  */
 void update_mainwindow();
 
 /**
- * This function displays main window
+ * This function moves an alien.
+ * 
+ * Inputs:
+ *      - Alien* alien: alien to move.
  */
-void show_mainwindow();
+void move_alien(Alien* alien);
+
+/**
+ * This function displays main window
+ * 
+ * Inputs:
+ *      - Bridge* west_bridge: west bridge data.
+ *      - Bridge* central_bridge: central bridge data.
+ *      - Bridge* east_bridge: easte bridge data.
+ *      - AlienSpawner* alien_spawner: alien spawner data.
+ */
+void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
+                    BridgeData* east_bridge, AlienSpawner* alien_spawner);
 
 
 #endif /* PROJECT2_GUI_GUI_H */

@@ -53,4 +53,40 @@ BridgeData* parse_bridge(char* data);
  */
 AlienSpawner* parse_spawner(char* data);
 
+/**
+ * This function creates an alpha alien.
+ * 
+ * Inputs:
+ *      - AlienData data: alien data to create new alpha alien.
+ *      - short communiy: 0 to A community or 1 to B community.
+ * 
+ * Returns:
+ *      An Alien structure representing the alpha alien.
+ */
+Alien* create_alpha_alien(AlienData data, short community);
+
+/**
+ * This function creates a beta alien.
+ * 
+ * Inputs:
+ *      - AlienData data: alien data to create new beta alien.
+ *      - short communiy: 0 to A community or 1 to B community.
+ * 
+ * Returns:
+ *      An Alien structure representing the beta alien.
+ */
+Alien* create_beta_alien(AlienData data, short community);
+
+/**
+ * This function creates a normal alien.
+ * 
+ * Inputs:
+ *      - AlienData data: alien data to create new normal alien.
+ *      - short communiy: 0 to A community or 1 to B community.
+ * 
+ * Returns:
+ *      An Alien structure representing the normal alien.
+ */
+Alien* create_normal_alien(AlienData data, short community);
+
 #endif /* PROJECT2_SHARED_TOOLS_H */

@@ -34,7 +34,7 @@ int map[MAP_Y][MAP_X] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 // Matrix to draw aliens
-int matrix[MAP_Y][MAP_X];
+int aliens_matrix[MAP_Y][MAP_X];
 
 /**
  * This function loads all imagens
@@ -57,17 +57,17 @@ int init_all() {
     }
 
     // Create timer
-    timer = al_create_timer(1.0 / FPS_HIGHLIGHT);
+    timer_update = al_create_timer(1.0 / FPS_HIGHLIGHT);
 
-    if (!timer) {
+    if (!timer_update) {
         al_show_native_message_box(NULL, NULL, "Error",
-                                "Failed to create timer",
+                                "Failed to create timer_update",
                                 NULL, ALLEGRO_MESSAGEBOX_ERROR);
         return FALSE;
     }
 
-    // Start timer
-    al_start_timer(timer);
+    // Start update timer
+    al_start_timer(timer_update);
 
     // Create the display
     display = al_create_display(WINDOW_WIDTH, WINDOW_HEIGHT);
@@ -131,7 +131,7 @@ int init_all() {
     al_register_event_source(event_queue,
                             al_get_display_event_source(display));
     al_register_event_source(event_queue,
-                            al_get_timer_event_source(timer));
+                            al_get_timer_event_source(timer_update));
     al_register_event_source(event_queue,
                             al_get_keyboard_event_source());
     
@@ -148,7 +148,7 @@ int init_all() {
     // Fill alien matrix
     for (int i = 0; i < MAP_Y; i ++) {
         for (int j = 0; j < MAP_X; j++) {
-            matrix[i][j] = 0;
+            aliens_matrix[i][j] = 0;
         }
     }
 
@@ -162,7 +162,7 @@ void destroy_all() {
     al_destroy_display(display);
     al_destroy_event_queue(event_queue);
 
-    al_destroy_timer(timer);
+    al_destroy_timer(timer_update);
 
     al_uninstall_keyboard();
 
@@ -205,6 +205,26 @@ void draw_map() {
 }
 
 /**
+ * This function draw the aliens matrix.
+ */
+void draw_alien_matrix() {
+    ALLEGRO_COLOR color;
+
+    for (int i = 0; i < MAP_Y; i ++) {
+        for (int j = 0; j < MAP_X; j++) {
+            // Draw normal alien
+            if (aliens_matrix[i][j] == 1) {
+                al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, normal_alien_color);
+            } else if (aliens_matrix[i][j] == 2) {
+                al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, alpha_alien_color);
+            } else if (aliens_matrix[i][j] == 3) {
+                al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, beta_alien_color);
+            }
+        }
+    }
+}
+
+/**
  * This function updates the main window
  */
 void update_mainwindow() {
@@ -213,20 +233,123 @@ void update_mainwindow() {
 
     // Draw map
     draw_map();
+    // Draw alien matrix
+    draw_alien_matrix();
 
     // Community houses
-	al_draw_bitmap(img_community_a_house, 3 * TILE_SIZE, ((int) WINDOW_HEIGHT/2 - 77), 0);
-	al_draw_bitmap(img_community_b_house, WINDOW_WIDTH - 3 * TILE_SIZE - 170, ((int) WINDOW_HEIGHT/2 - 77), 0);
+	//al_draw_bitmap(img_community_a_house, 3 * TILE_SIZE, ((int) WINDOW_HEIGHT/2 - 77), 0);
+	//al_draw_bitmap(img_community_b_house, WINDOW_WIDTH - 3 * TILE_SIZE - 170, ((int) WINDOW_HEIGHT/2 - 77), 0);
+}
+
+/**
+ * This function moves an alien.
+ * 
+ * Inputs:
+ *      - Alien* alien: alien to move.
+ */
+void move_alien(Alien* alien) {
+    aliens_matrix[alien->position[0]][alien->position[1]] = 0;
+
+    // Check direction
+    short direction = alien->direction;
+
+    switch (direction) {
+        // Up
+        case 0:
+            // If the road continues up
+            if (map[alien->position[0] - 1][alien->position[1]] == 1) {
+                alien->position[0]--;
+            } // If the road continues to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                alien->position[1]++;
+                alien->direction = 3;
+            } // If the road continues down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
+                alien->position[0]++;
+                alien->direction = 1;
+            } // If the road continues to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
+                alien->position[1]--;
+                alien->direction = 2;
+            }
+            break;
+        // Down
+        case 1:
+            // If the road continues up
+            if (map[alien->position[0] - 1][alien->position[1]] == 1) {
+                alien->position[0]--;
+                alien->direction = 0;
+            } // If the road continues to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                alien->position[1]++;
+                alien->direction = 3;
+            } // If the road continues down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
+                alien->position[0]++;
+            } // If the road continues to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
+                alien->position[1]--;
+                alien->direction = 2;
+            }
+            break;
+        // Left
+        case 2:
+            // If the road continues up
+            if (map[alien->position[0] - 1][alien->position[1]] == 1) {
+                alien->position[0]--;
+                alien->direction = 0;
+            } // If the road continues to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                alien->position[1]++;
+                alien->direction = 3;
+            } // If the road continues down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
+                alien->position[0]++;
+                alien->direction = 1;
+            } // If the road continues to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
+                alien->position[1]--;
+            }
+            break;
+        // Right
+        case 3:
+            // If the road continues up
+            if (map[alien->position[0] - 1][alien->position[1]] == 1) {
+                alien->position[0]--;
+                alien->direction = 0;
+            } // If the road continues to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                alien->position[1]++;
+            } // If the road continues down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
+                alien->position[0]++;
+                alien->direction = 1;
+            } // If the road continues to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
+                alien->position[1]--;
+                alien->direction = 2;
+            }
+            break;
+        default:
+            break;
+    }
+
+    aliens_matrix[alien->position[0]][alien->position[1]] = 2;
 }
 
 /**
  * This function displays main window
  */
-void show_mainwindow() {
+void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
+                     BridgeData* east_bridge, AlienSpawner* alien_spawner) {
     // TRUE to show menu
     int menu = TRUE;
     // Indicates when graphics are drawn
     int redraw = FALSE;
+    int frames = 0;
+
+    Alien* alpha_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
+    aliens_matrix[alpha_alien->position[0]][alpha_alien->position[1]] = 2;
     
     while (menu) {
         // Get event from queue
@@ -242,6 +365,7 @@ void show_mainwindow() {
             // When timer launch a event
             case ALLEGRO_EVENT_TIMER:
                 redraw = TRUE;
+                frames += 1;
                 break;
             // When key was pressed
             case ALLEGRO_EVENT_KEY_DOWN:
@@ -251,14 +375,31 @@ void show_mainwindow() {
                         menu = FALSE;
                         play = FALSE;
                         break;
-                    // Alpha Alien
+                    // Alpha Alien from Community A
                     case ALLEGRO_KEY_A:
+                        aliens_matrix[alpha_alien->position[0]][alpha_alien->position[1]] = 0;
+                        free(alpha_alien);
+                        alpha_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
+                        aliens_matrix[alpha_alien->position[0]][alpha_alien->position[1]] = 2;
                         break;
-                    // Beta Alien
+                    // Beta Alien from Community A
                     case ALLEGRO_KEY_B:
                         break;
-                    // Normal Alien
+                    // Normal Alien from Community A
                     case ALLEGRO_KEY_N:
+                        break;
+                    // Alpha Alien from Community B
+                    case ALLEGRO_KEY_1:
+                        aliens_matrix[alpha_alien->position[0]][alpha_alien->position[1]] = 0;
+                        free(alpha_alien);
+                        alpha_alien = create_alpha_alien(*alien_spawner->alien_data, 1);
+                        aliens_matrix[alpha_alien->position[0]][alpha_alien->position[1]] = 2;
+                        break;
+                    // Beta Alien from Community B
+                    case ALLEGRO_KEY_2:
+                        break;
+                    // Normal Alien from Community B
+                    case ALLEGRO_KEY_3:
                         break;
                     // When enter was pressed, go to waiting window
                     case ALLEGRO_KEY_ENTER:
@@ -277,7 +418,14 @@ void show_mainwindow() {
             redraw = FALSE;
         }
 
+        if (frames == 2) {
+            frames = 0;
+            move_alien(alpha_alien);
+        }
+
         // Update display
         al_flip_display();
     }
+
+    free(alpha_alien);
 }

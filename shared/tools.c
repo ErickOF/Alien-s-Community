@@ -211,3 +211,32 @@ AlienSpawner* parse_spawner(char* data) {
 
     return alien_spawner;
 }
+
+Alien* create_alpha_alien(AlienData data, short community) {
+    // Creating Alien structure
+    Alien* alpha_alien = malloc(sizeof(Alien));
+
+    // Setting information from AlienData
+    alpha_alien->execution_time = data.execution_time;
+    alpha_alien->speed = data.speed;
+    alpha_alien->weight = data.weight;
+
+    // Setting alpha alien data
+    if (community == 0) {
+        alpha_alien->position[0] = 13;
+        alpha_alien->position[1] = 7;
+        alpha_alien->direction = 0;
+    } else {
+        alpha_alien->position[0] = 16;
+        alpha_alien->position[1] = 46;
+        alpha_alien->direction = 1;
+    }
+
+    alpha_alien->priority = 2;
+    alpha_alien->status = 0;
+    alpha_alien->type = 1;
+}
+
+Alien* create_beta_alien(AlienData data, short community) {}
+
+Alien* create_normal_alien(AlienData data, short community) {}

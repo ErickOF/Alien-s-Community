@@ -30,6 +30,11 @@
  *     - dead:      5
  *     - free:      6
  * float weight - alien weight.
+ * short direction - alien direction.
+ *     - up:    0
+ *     - down:  1
+ *     - left:  2
+ *     - right: 3
  * 
  */
 struct alien {
@@ -41,6 +46,7 @@ struct alien {
     short type;
     short status;
     float weight;
+    short direction;
 } typedef Alien;
 
 /**
