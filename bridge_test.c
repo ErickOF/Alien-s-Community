@@ -10,9 +10,9 @@ int main() {
     bridge.max_south_aliens = 10;
     bridge.max_north_aliens = 10;
     bridge.max_weight = 5;
+
     bridge.south_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_south_aliens);
     bridge.north_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_north_aliens);
-    bridge.current_aliens = (Alien*) malloc(sizeof(Alien) * (bridge.max_north_aliens + bridge.max_south_aliens));
     int max_number = bridge.south_aliens_number+bridge.north_aliens_number;
 
     for (int i = 0; i < bridge.north_aliens_number - 1; i++) {
@@ -34,7 +34,6 @@ int main() {
         alien.status = 2;
         alien.weight = 2.1;
         bridge.south_aliens[i] = alien;
-        printf("Alien %d: status %d\n", i, bridge.south_aliens[i].status);
     }
 
     for (int i = 0; i < bridge.north_aliens_number; i = i+2) {
@@ -44,11 +43,11 @@ int main() {
         bridge.north_aliens[i] = alien;
     }
 
-    y_algorithm(&bridge);
+    //*y_algorithm(&bridge);*//
+    //*survival_algorithm(&bridge);*//
 
     free(bridge.north_aliens);
     free(bridge.south_aliens);
-    free(bridge.current_aliens);
 
     return 0;
 }

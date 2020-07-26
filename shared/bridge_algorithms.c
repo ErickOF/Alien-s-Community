@@ -1,6 +1,6 @@
 #include "bridge_algorithms.h"
-int CROSSED_ALIENS_COUNTER = 0;
 
+//***********************Y ALGORITHM****************************//
 void y_algorithm(Bridge *bridge) {
     int north_max_index = bridge->north_aliens_number-1;
     int south_max_index = bridge->south_aliens_number-1;
@@ -51,11 +51,7 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
 
         bridge->north_aliens_number -= 1;
         bridge->north_aliens[0].status = 1;
-
-        bridge->current_aliens[CROSSED_ALIENS_COUNTER] = bridge->north_aliens[0];
-        bridge->current_weight += bridge->current_aliens[CROSSED_ALIENS_COUNTER].weight;
-
-        CROSSED_ALIENS_COUNTER++;
+        bridge->current_weight += bridge->north_aliens[0].weight;
 
         for (int j = 0; j < max_index; j++) {                
             bridge->north_aliens[j] = bridge->north_aliens[j + 1];
@@ -84,11 +80,7 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
 
         bridge->south_aliens_number -= 1;
         bridge->south_aliens[0].status = 1;
-
-        bridge->current_aliens[CROSSED_ALIENS_COUNTER] = bridge->south_aliens[0];
-        bridge->current_weight += bridge->current_aliens[CROSSED_ALIENS_COUNTER].weight;
-
-        CROSSED_ALIENS_COUNTER++;
+        bridge->current_weight += bridge->south_aliens[0].weight;
 
         for (int j = 0; j < max_index; j++){
             bridge->south_aliens[j] = bridge->south_aliens[j + 1];
@@ -97,6 +89,27 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
     }
 }
 
+//***********************SEMAPHORE ALGORITHM****************************//
+void sem_algorithm(Bridge *bridge){
+    
+}
+
+//***********************SURVIVAL ALGORITHM****************************//
+void survival_algorithm(Bridge *bridge){
+    int north_max_index = bridge->north_aliens_number-1;
+    int south_max_index = bridge->south_aliens_number-1;
+    if(south_max_index >= 0){
+        bridge->direction = 1;
+        cross_south_aliens(bridge, bridge->south_aliens_number, south_max_index);
+    }
+    if(north_max_index >= 0){
+        bridge->direction = 0;
+        cross_north_aliens(bridge, bridge->north_aliens_number, north_max_index);
+    }
+}
+
+
+//************************EXTRA FUNCTIONS***************************//
 short check_weight(Bridge *bridge, float weight){
     float new_weight = weight + bridge->current_weight;
     printf("Aliens weight: %f \n", weight);

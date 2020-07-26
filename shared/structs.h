@@ -95,7 +95,6 @@ struct bridge {
     int north_aliens_number;
     int max_south_aliens;
     int max_north_aliens;
-    Alien* current_aliens;
     void* algorithm;
     void* calendar;
     short direction;
