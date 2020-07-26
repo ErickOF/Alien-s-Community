@@ -7,12 +7,12 @@
 #define FALSE 0
 
 // Matrix dimensions
-#define MAP_X 40
-#define MAP_Y 30
+#define MAP_X 45
+#define MAP_Y 25
 
 // Windows settings
-static const int WINDOW_HEIGHT = 900;
-static const int WINDOW_WIDTH = 1200;
+static const int WINDOW_HEIGHT = 750;
+static const int WINDOW_WIDTH = 1350;
 
 // Tile size
 static const int TILE_SIZE = 30;
