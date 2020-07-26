@@ -8,6 +8,9 @@
 #include <unistd.h>
 #include <stdio.h>
 
+int z[1000];
+int x[1000];
+int y[1000];
 
 void hey(){
 
@@ -60,6 +63,14 @@ void mutex_count(lpthread_mutex_t* mutex){
 
 }
 
+void saxpy(){
+
+}
+
+void saxpy_yield(){
+
+}
+
 
 
 void creation_test(){
@@ -96,6 +107,13 @@ void mutex_test(){
     printf("Thread 2 created with pid %i\n", Lthread_create(&thread2, NULL, mutex_count, mutex));
 
     sleep(12);
+}
+
+void yield_test(){
+
+    printf("\n\n ------- Now testing non mutex vs mutex printing ------ \n\n");
+
+
 }
 
 

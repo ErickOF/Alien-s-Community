@@ -1,6 +1,11 @@
 #ifndef PROJECT2_SHARED_STRUCTS_H
 #define PROJECT2_SHARED_STRUCTS_H
 
+
+
+#include "../lib/lpthreads.c"
+
+
 /**
  * This struct represents a generic alien.
  * 
@@ -63,6 +68,22 @@ struct alien_data {
     float weight;
 } typedef AlienData;
 
+
+
+
+enum cardinals
+{
+    NORTH,
+    SOUTH
+};
+enum schedulers
+{
+    ROUND_ROBIN,
+    PRIORITY,
+    SPF,
+    FIFO,
+    LOTTERY
+};
 /**
  * Struct used to represent a Bridge.
  * 
@@ -90,14 +111,15 @@ struct bridge {
     float max_weight;
     int length;
     Alien* south_aliens;
+    lpthread_mutex_t* south_mutex;
     Alien* north_aliens;
+    lpthread_mutex_t* north_mutex;
     int south_aliens_number;
     int north_aliens_number;
     int max_south_aliens;
     int max_north_aliens;
     Alien* current_aliens;
-    void* algorithm;
-    void* calendar;
+    enum schedulers calendar;
     short direction;
     int y;
 } typedef Bridge;

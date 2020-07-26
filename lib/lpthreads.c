@@ -235,9 +235,6 @@ int Lmutex_init(lpthread_mutex_t** mutex, lpthread_mutex_attr_t** attributes){
 
 
     return 0;
-
-
-
 }
 
 /**
