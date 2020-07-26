@@ -33,11 +33,24 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index);
  *
  * Inputs:
  *      - bridge: pointer to the struct of the bridge the algorithm belongs to
- *      -iterations: number of aliens that should cross
+ *      - iterations: number of aliens that should cross
  * 
  *   
  */
 void cross_south_aliens(Bridge *bridge, int iterations, int max_index);
+
+/**
+ * This functions validates if an alien can cross the brodge depending on its weight
+ *
+ * Inputs:
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
+ *      - weight: weight of the alien that should cross
+ * 
+ * Returns:
+ *      - 0: True
+ *      - 1: False
+ */
+short check_weight(Bridge *bridge, float weight);
 
 /**
  * This func....
