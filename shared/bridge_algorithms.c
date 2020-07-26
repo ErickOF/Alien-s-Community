@@ -5,7 +5,7 @@ void y_algorithm(Bridge bridge) {
     printf("Aliens al norte Inicial: %d \n", bridge.north_aliens_number);
     printf("Aliens al sur Inicial: %d \n", bridge.south_aliens_number);
     printf("Y = %d \n", bridge.y);
-    while ((bridge.north_aliens_number!=0) && (bridge.south_aliens_number!=0)){
+    while ((bridge.north_aliens_number!=0) || (bridge.south_aliens_number!=0)){
         if (bridge.north_aliens_number >= bridge.y){
             bridge.direction = 0;
             for (int i=1; i<=bridge.y; i++){
