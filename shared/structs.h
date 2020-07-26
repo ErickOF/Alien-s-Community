@@ -26,7 +26,7 @@
  *     - running:   1
  *     - completed: 2
  *     - waiting:   3
- *     - locked:    4 // Ask
+ *     - locked:    4
  *     - dead:      5
  * float weight - alien weight.
  * 
@@ -62,14 +62,16 @@ struct alien_data {
  * int position[2] - bridge position.
  * float current_weight - current weight on the bridge.
  * float max_weight - max weight supported by the bridge.
- * int lenght
+ * int length
  * int south_aliens - current number of alien in the south.
- * int nord_aliens - current number of aliens in the nord.
+ * int north_aliens - current number of aliens in the north.
  * int max_south_aliens - max number of alien in the south.
- * int max_nord_aliens - max number of aliens in the nord
+ * int max_north_aliens - max number of aliens in the north
  * void* algorithm - calendarization algorithm.
  * void* calendar - calendar type.
- * int direction - current bridge direction.
+ * short direction - current bridge direction.
+ *      north to south: 0
+ *      south to north: 1
  * 
  */
 struct bridge {
@@ -78,13 +80,16 @@ struct bridge {
     float current_weight;
     float max_weight;
     int length;
-    int south_aliens;
-    int nord_aliens;
+    Alien* south_aliens;
+    Alien* north_aliens;
+    int south_aliens_number;
+    int north_aliens_number;
     int max_south_aliens;
-    int max_nord_aliens;
+    int max_north_aliens;
     void* algorithm;
     void* calendar;
-    int direction;
+    short direction;
+    int y;
 } typedef Bridge;
 
 /**
@@ -92,7 +97,7 @@ struct bridge {
  * 
  * float max_weight - max weight supported by the bridge.
  * int max_south_aliens - max number of alien in the south.
- * int max_nord_aliens - max number of aliens in the nord.
+ * int max_north_aliens - max number of aliens in the north.
  * char* algorithm - name of the calendarization algorithm.
  * char* calendar - calendar type name.
  * 
@@ -101,7 +106,7 @@ struct bridge_data {
     int length;
     float max_weight;
     int max_south_aliens;
-    int max_nord_aliens;
+    int max_north_aliens;
     char* algorithm;
     char* calendar;
 } typedef BridgeData;

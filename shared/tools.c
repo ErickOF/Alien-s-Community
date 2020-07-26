@@ -139,9 +139,9 @@ BridgeData* parse_bridge(char* data) {
             // Assign calendar here later
             //bridge_data->calendar = value;
         }
-        // Check if the param is max_nord_aliens
-        if (strcmp(param, "max_nord_aliens\0") == 0) {
-            bridge_data->max_nord_aliens = atoi(value);
+        // Check if the param is max_north_aliens
+        if (strcmp(param, "max_north_aliens\0") == 0) {
+            bridge_data->max_north_aliens = atoi(value);
         }
         // Check if the param is max_south_aliens
         if (strcmp(param, "max_south_aliens\0") == 0) {
@@ -158,7 +158,7 @@ BridgeData* parse_bridge(char* data) {
 
 AlienSpawner* parse_spawner(char* data) {
     AlienSpawner* alien_spawner = (AlienSpawner*) malloc(sizeof(AlienSpawner));
-        int i = 0;
+    int i = 0;
 
     // Go through the data
     while (data[i] != '\0') {

@@ -10,7 +10,7 @@
 #include <allegro5/allegro_ttf.h>
 
 #include "gui_constants.h"
-
+#include "../shared/structs.h"
 
 // Game Screen
 ALLEGRO_DISPLAY* display;
@@ -20,32 +20,43 @@ ALLEGRO_EVENT_QUEUE* event_queue;
 // Timers
 ALLEGRO_TIMER* timer;
 
-
-// Indicates if the game is running
-int play;
-
 // Images
 ALLEGRO_BITMAP* img_community_a_house;
 ALLEGRO_BITMAP* img_community_b_house;
-ALLEGRO_BITMAP* img_alpha_alien;
-ALLEGRO_BITMAP* img_beta_alien;
-ALLEGRO_BITMAP* img_normal_alien;
 
+// Colors
+ALLEGRO_COLOR alpha_alien;
+ALLEGRO_COLOR avenue;
+ALLEGRO_COLOR beta_alien;
+ALLEGRO_COLOR background;
+ALLEGRO_COLOR bridge;
+ALLEGRO_COLOR normal_alien;
+ALLEGRO_COLOR road;
+
+// Indicates if the game is running
+int play;
+// All created aliens
+Alien* aliens;
 
 /**
- * This function loads all imagens
+ * This function loads all imagens.
  */
 void load_imgs();
 
 /**
- * This function init all components
+ * This function init all components.
  */
 int init_all();
 
 /**
- * Destroy all components
+ * Destroy all components.
  */
 void destroy_all();
+
+/**
+ * This function updates game map.
+ */
+void draw_map();
 
 /**
  * This function updates the main window
