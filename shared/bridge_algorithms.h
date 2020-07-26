@@ -2,6 +2,7 @@
 #define PROJECT2_SHARED_BRIDGE_ALGORITHMS_H
 
 #include "structs.h"
+#include <stdio.h>
 
 /**
  * This func....
