@@ -39,9 +39,9 @@ thread_test:
 bridge_test:
 	@gcc -c ${BRIDGE_ALGORITHMS}.c -o ${BRIDGE_ALGORITHMS}.o
 	@gcc -c ${BRIDGE_TEST}.c -o ${BRIDGE_TEST}.o
-	@gcc -o ${BRIDGE_TEST}2 ${BRIDGE_TEST}.o ${BRIDGE_ALGORITHMS}.o
+	@gcc -o ${BRIDGE_TEST} ${BRIDGE_TEST}.o ${BRIDGE_ALGORITHMS}.o
 	@rm ${BRIDGE_ALGORITHMS}.o ${BRIDGE_TEST}.o
-	@./${BRIDGE_TEST}2
+	@./${BRIDGE_TEST}
 
 run:
 	@./${APP}

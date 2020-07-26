@@ -5,15 +5,39 @@
 #include <stdio.h>
 
 /**
- * This func....
+ * This function checks the conditions that the bridge
+ * with the Algorithm Y shoul follow to let aliens cross
  *
  * Inputs:
- *      - bridge: struct of the bridge the algorithm belongs to
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
  * 
- * Returns:
- *      skfjskfjskfj
+ * 
  */
-void y_algorithm(Bridge bridge);
+void y_algorithm(Bridge *bridge);
+
+/**
+ * This functions changes the data of the bridge and aliens according to the
+ * aliens that cross in north-south direction
+ *
+ * Inputs:
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
+ *      -iterations: number of aliens that should cross
+ * 
+ * 
+ */
+void cross_north_aliens(Bridge *bridge, int iterations);
+
+/**
+ * This functions changes the data of the bridge and aliens according to the
+ * aliens that cross in south-north direction
+ *
+ * Inputs:
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
+ *      -iterations: number of aliens that should cross
+ * 
+ *   
+ */
+void cross_south_aliens(Bridge *bridge, int iterations);
 
 /**
  * This func....
