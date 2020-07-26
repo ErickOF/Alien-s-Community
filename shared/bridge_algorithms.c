@@ -4,27 +4,27 @@
 void y_algorithm(Bridge *bridge) {
     while ((bridge->north_aliens_number!=0) || (bridge->south_aliens_number!=0)){
         if (bridge->north_aliens_number >= bridge->y){
-            cross_north_aliens(&bridge, bridge->y);
+            cross_north_aliens(bridge, bridge->y);
         }
 
         if (bridge->south_aliens_number >= bridge->y){
-            cross_south_aliens(&bridge, bridge->y);
+            cross_south_aliens(bridge, bridge->y);
         }
 
         else{
             if (bridge->south_aliens_number > bridge->north_aliens_number){
-                cross_south_aliens(&bridge, bridge->south_aliens_number);
+                cross_south_aliens(bridge, bridge->south_aliens_number);
             }
 
             if (bridge->north_aliens_number > bridge->south_aliens_number){
-                cross_north_aliens(&bridge, bridge->north_aliens_number);
+                cross_north_aliens(bridge, bridge->north_aliens_number);
             }
             if (bridge->south_aliens_number == bridge->north_aliens_number){
                 if (bridge->direction == 0){
-                    cross_north_aliens(&bridge, bridge->north_aliens_number);
+                    cross_north_aliens(bridge, bridge->north_aliens_number);
                 }
                 else {
-                    cross_south_aliens(&bridge, bridge->south_aliens_number);
+                    cross_south_aliens(bridge, bridge->south_aliens_number);
                 }
             }
         }
