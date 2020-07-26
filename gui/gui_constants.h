@@ -7,15 +7,15 @@
 #define FALSE 0
 
 // Matrix dimensions
-#define MAP_X 45
-#define MAP_Y 25
+#define MAP_X 54
+#define MAP_Y 30
 
 // Windows settings
 static const int WINDOW_HEIGHT = 750;
 static const int WINDOW_WIDTH = 1350;
 
 // Tile size
-static const int TILE_SIZE = 30;
+static const int TILE_SIZE = 25;
 
 // Aliens window
 static const char* WINDOW_TITLE = "Alien's Comunity\0";

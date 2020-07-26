@@ -12,6 +12,7 @@
 #include "gui_constants.h"
 #include "../shared/structs.h"
 
+
 // Game Screen
 ALLEGRO_DISPLAY* display;
 // Event Queue detected
@@ -25,13 +26,14 @@ ALLEGRO_BITMAP* img_community_a_house;
 ALLEGRO_BITMAP* img_community_b_house;
 
 // Colors
-ALLEGRO_COLOR alpha_alien;
-ALLEGRO_COLOR avenue;
-ALLEGRO_COLOR beta_alien;
-ALLEGRO_COLOR background;
-ALLEGRO_COLOR bridge;
-ALLEGRO_COLOR normal_alien;
-ALLEGRO_COLOR road;
+ALLEGRO_COLOR alpha_alien_color;
+ALLEGRO_COLOR avenue_color;
+ALLEGRO_COLOR beta_alien_color;
+ALLEGRO_COLOR background_color;
+ALLEGRO_COLOR bridge_color;
+ALLEGRO_COLOR normal_alien_color;
+ALLEGRO_COLOR road_color;
+ALLEGRO_COLOR street_color;
 
 // Indicates if the game is running
 int play;
