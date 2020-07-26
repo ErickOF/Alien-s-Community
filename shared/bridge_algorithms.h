@@ -61,7 +61,7 @@ short check_weight(Bridge *bridge, float weight);
  * Returns:
  *      skfjskfjskfj
  */
-void sem_algorithm(int y);
+void sem_algorithm(Bridge *bridge);
 
 /**
  * This func....
@@ -72,6 +72,6 @@ void sem_algorithm(int y);
  * Returns:
  *      skfjskfjskfj
  */
-void survival_algorithm(int y);
+void survival_algorithm(Bridge *bridge);
 
 #endif /* PROJECT2_SHARED_BRIDGE_ALGORITHMS_H */

@@ -40,7 +40,7 @@
  *     - down:  1
  *     - left:  2
  *     - right: 3
- * 
+ * short ticks - indicates how many ticks have passed since creation.
  */
 struct alien {
     // (x, y)
@@ -52,6 +52,7 @@ struct alien {
     short status;
     float weight;
     short direction;
+    short ticks;
 } typedef Alien;
 
 /**
@@ -118,7 +119,6 @@ struct bridge {
     int north_aliens_number;
     int max_south_aliens;
     int max_north_aliens;
-    Alien* current_aliens;
     enum schedulers calendar;
     short direction;
     int y;
