@@ -35,7 +35,7 @@
  *     - down:  1
  *     - left:  2
  *     - right: 3
- * 
+ * short ticks - indicates how many ticks have passed since creation.
  */
 struct alien {
     // (x, y)
@@ -47,6 +47,7 @@ struct alien {
     short status;
     float weight;
     short direction;
+    short ticks;
 } typedef Alien;
 
 /**

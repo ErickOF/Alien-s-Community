@@ -218,7 +218,8 @@ Alien* create_alpha_alien(AlienData data, short community) {
 
     // Setting information from AlienData
     alpha_alien->execution_time = data.execution_time;
-    alpha_alien->speed = data.speed;
+    // 20% faster than normal
+    alpha_alien->speed = 0.8 * data.speed;
     alpha_alien->weight = data.weight;
 
     // Setting alpha alien data
@@ -234,9 +235,65 @@ Alien* create_alpha_alien(AlienData data, short community) {
 
     alpha_alien->priority = 2;
     alpha_alien->status = 0;
+    alpha_alien->ticks = 0;
     alpha_alien->type = 1;
 }
 
-Alien* create_beta_alien(AlienData data, short community) {}
+Alien* create_beta_alien(AlienData data, short community) {
+    // Creating Alien structure
+    Alien* beta_alien = malloc(sizeof(Alien));
 
-Alien* create_normal_alien(AlienData data, short community) {}
+    // Random speed
+    time_t t;
+    // Intializes random number generator
+    srand((unsigned) time(&t));
+
+    // Setting information from AlienData
+    beta_alien->execution_time = data.execution_time;
+    // 50%-200% faster than the normal alien
+    // 0.6666667x-0.25x
+    beta_alien->speed = (rand() % 417 + 250.0) / 1000.0 * data.speed;
+    beta_alien->weight = data.weight;
+
+    // Setting beta alien data
+    if (community == 0) {
+        beta_alien->position[0] = 13;
+        beta_alien->position[1] = 7;
+        beta_alien->direction = 0;
+    } else {
+        beta_alien->position[0] = 16;
+        beta_alien->position[1] = 46;
+        beta_alien->direction = 1;
+    }
+
+    beta_alien->priority = 1;
+    beta_alien->status = 0;
+    beta_alien->ticks = 0;
+    beta_alien->type = 2;
+}
+
+Alien* create_normal_alien(AlienData data, short community) {
+    // Creating Alien structure
+    Alien* normal_alien = malloc(sizeof(Alien));
+
+    // Setting information from AlienData
+    normal_alien->execution_time = data.execution_time;
+    normal_alien->speed = data.speed;
+    normal_alien->weight = data.weight;
+
+    // Setting normal alien data
+    if (community == 0) {
+        normal_alien->position[0] = 13;
+        normal_alien->position[1] = 7;
+        normal_alien->direction = 0;
+    } else {
+        normal_alien->position[0] = 16;
+        normal_alien->position[1] = 46;
+        normal_alien->direction = 1;
+    }
+
+    normal_alien->priority = 2;
+    normal_alien->status = 0;
+    normal_alien->ticks = 0;
+    normal_alien->type = 0;
+}

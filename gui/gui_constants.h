@@ -6,6 +6,8 @@
 #define TRUE  1
 #define FALSE 0
 
+#define MAX_ALIENS_NUMBER 100
+
 // Matrix dimensions
 #define MAP_X 54
 #define MAP_Y 30
@@ -21,7 +23,7 @@ static const int TILE_SIZE = 25;
 static const char* WINDOW_TITLE = "Alien's Comunity\0";
 
 // FPS to use
-static const float FPS_HIGHLIGHT = 2.5;
+static const float FPS_HIGHLIGHT = 60;
 
 // Images paths
 static const char* IMG_COMMUNITY_A_HOUSE_PATH = "gui/src/imgs/community_b_house.png";

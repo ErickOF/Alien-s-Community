@@ -32,6 +32,7 @@ ALLEGRO_COLOR avenue_color;
 ALLEGRO_COLOR beta_alien_color;
 ALLEGRO_COLOR background_color;
 ALLEGRO_COLOR bridge_color;
+ALLEGRO_COLOR intruder_color;
 ALLEGRO_COLOR normal_alien_color;
 ALLEGRO_COLOR road_color;
 ALLEGRO_COLOR street_color;
