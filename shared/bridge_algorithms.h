@@ -25,7 +25,7 @@ void y_algorithm(Bridge *bridge);
  * 
  * 
  */
-void cross_north_aliens(Bridge *bridge, int iterations);
+void cross_north_aliens(Bridge *bridge, int iterations, int max_index);
 
 /**
  * This functions changes the data of the bridge and aliens according to the
@@ -37,7 +37,7 @@ void cross_north_aliens(Bridge *bridge, int iterations);
  * 
  *   
  */
-void cross_south_aliens(Bridge *bridge, int iterations);
+void cross_south_aliens(Bridge *bridge, int iterations, int max_index);
 
 /**
  * This func....
