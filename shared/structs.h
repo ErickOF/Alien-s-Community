@@ -50,7 +50,7 @@ struct alien {
     float execution_time;
     short type;
     short status;
-    float weight;
+    int weight;
     short direction;
     short ticks;
 } typedef Alien;
@@ -109,8 +109,9 @@ enum schedulers
 struct bridge {
     // (x, y)
     short position[2];
-    float current_weight;
-    float max_weight;
+    lpthread_mutex_t* curren_weight_mutex;
+    int current_weight;
+    int max_weight;
     int length;
     Alien* south_aliens;
     lpthread_mutex_t* south_mutex;

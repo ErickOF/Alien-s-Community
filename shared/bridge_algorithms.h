@@ -42,18 +42,6 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index);
  */
 void cross_south_aliens(Bridge *bridge, int iterations, int max_index);
 
-/**
- * This functions validates if an alien can cross the brodge depending on its weight
- *
- * Inputs:
- *      - bridge: pointer to the struct of the bridge the algorithm belongs to
- *      - weight: weight of the alien that should cross
- * 
- * Returns:
- *      - 0: True
- *      - 1: False
- */
-short check_weight(Bridge *bridge, float weight);
 
 /**
  * This func....
@@ -77,6 +65,31 @@ void sem_algorithm(Bridge *bridge);
  */
 void survival_algorithm(Bridge *bridge);
 
+/**
+ * This functions validates if an alien can cross the brodge depending on its weight
+ *
+ * Inputs:
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
+ *      - weight: weight of the alien that should cross
+ * 
+ * Returns:
+ *      - 0: True
+ *      - 1: False
+ */
+short check_max_weight(Bridge *bridge, float weight);
 
+
+/**
+ * This functions validates if the weight of the bridge is zero so it can change direction
+ *
+ * Inputs:
+ *      - bridge: pointer to the struct of the bridge the algorithm belongs to
+ *      - weight: weight of the alien that should cross
+ * 
+ * Returns:
+ *      - 0: True
+ *      - 1: False
+ */
+short check_zero_weight(Bridge *bridge);
 
 #endif /* PROJECT2_SHARED_BRIDGE_ALGORITHMS_H */
