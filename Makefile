@@ -33,10 +33,7 @@ thread_test:
 	@./${BUILD_FOLDER}/${THREADS_TEST}
 
 bridge_test:
-	@gcc -c ${BRIDGE_ALGORITHMS}.c -o ${BRIDGE_ALGORITHMS}.o
-	@gcc -c ${BRIDGE_TEST}.c -o ${BRIDGE_TEST}.o
-	@gcc -o ${BRIDGE_TEST} ${BRIDGE_TEST}.o ${BRIDGE_ALGORITHMS}.o
-	@rm ${BRIDGE_ALGORITHMS}.o ${BRIDGE_TEST}.o
+	@gcc -o ${BRIDGE_TEST} ${BRIDGE_TEST}.c ${BRIDGE_ALGORITHMS}.c ${LPTHREADS}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c
 	@./${BRIDGE_TEST}
 	@rm ${BRIDGE_TEST}
 

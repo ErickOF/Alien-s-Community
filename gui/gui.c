@@ -274,19 +274,27 @@ void move_alien(Alien* alien) {
             if (map[alien->position[0] - 1][alien->position[1]] == 3) {
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
-                alien->position[0]--;
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                }
             } // If the road continues to the right
             else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
-                alien->position[1]++;
-                alien->direction = 3;
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                    alien->position[1]++;
+                    alien->direction = 3;
+                }
             } // If the road continues to the left
             else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
-                alien->position[1]--;
-                alien->direction = 2;
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                    alien->direction = 2;
+                }
             } // If the road continues down
             else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
-                alien->position[0]++;
-                alien->direction = 1;
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                    alien->direction = 1;
+                }
             }
             break;
         // Down
@@ -295,19 +303,27 @@ void move_alien(Alien* alien) {
             if (map[alien->position[0] + 1][alien->position[1]] == 3) {
             } // If the road continues down
             else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
-                alien->position[0]++;
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                }
             } // If the road continues to the right
             else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
-                alien->position[1]++;
-                alien->direction = 3;
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                    alien->position[1]++;
+                    alien->direction = 3;
+                }
             } // If the road continues to the left
             else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
-                alien->position[1]--;
-                alien->direction = 2;
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                    alien->direction = 2;
+                }
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
-                alien->position[0]--;
-                alien->direction = 0;
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                    alien->direction = 0;
+                }
             }
             break;
         // Left
@@ -317,16 +333,22 @@ void move_alien(Alien* alien) {
                 alien->position[1]--;
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
-                alien->position[0]--;
-                alien->direction = 0;
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                    alien->direction = 0;
+                }
             } // If the road continues down
             else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
-                alien->position[0]++;
-                alien->direction = 1;
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                    alien->direction = 1;
+                }
             } // If the road continues to the right
             else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
-                alien->position[1]++;
-                alien->direction = 3;
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                    alien->position[1]++;
+                    alien->direction = 3;
+                }
             }
             break;
         // Right
@@ -336,16 +358,22 @@ void move_alien(Alien* alien) {
                 alien->position[1]++;
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
-                alien->position[0]--;
-                alien->direction = 0;
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                    alien->direction = 0;
+                }
             } // If the road continues down
             else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
-                alien->position[0]++;
-                alien->direction = 1;
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                    alien->direction = 1;
+                }
             } // If the road continues to the left
             else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
-                alien->position[1]--;
-                alien->direction = 2;
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                    alien->direction = 2;
+                }
             }
             break;
         default:

@@ -90,4 +90,5 @@ Alien* create_beta_alien(AlienData data, short community);
  */
 Alien* create_normal_alien(AlienData data, short community);
 
+
 #endif /* PROJECT2_SHARED_TOOLS_H */
