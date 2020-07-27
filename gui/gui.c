@@ -395,6 +395,20 @@ void move_alien(Alien* alien) {
     aliens_matrix[alien->position[0]][alien->position[1]] = alien->type + 1;
 }
 
+void insert_alien(Alien* new_alien) {
+    /************ Running the Alien ************/
+    new_alien->status = 1;
+    /************ Running the Alien ************/
+
+    // Search for a empty space
+    for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+        if ((aliens + i)->status == 6) {
+            *(aliens + i) = *new_alien;
+            break;
+        }
+    }
+}
+
 /**
  * This function destroy an alien in the clicked cell.
  * 
@@ -476,18 +490,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -499,18 +503,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_beta_alien(*alien_spawner->alien_data, 0);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -522,18 +516,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_normal_alien(*alien_spawner->alien_data, 0);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -545,18 +529,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_alpha_alien(*alien_spawner->alien_data, 1);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -568,18 +542,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_beta_alien(*alien_spawner->alien_data, 1);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -590,18 +554,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // Create alien
                             new_alien = create_normal_alien(*alien_spawner->alien_data, 1);
                             aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
-
-                            /************ Running the Alien ************/
-                            new_alien->status = 1;
-                            /************ Running the Alien ************/
-
-                            // Insert Alien
-                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                                if ((aliens + i)->status == 6) {
-                                    *(aliens + i) = *new_alien;
-                                    break;
-                                }
-                            }
+                            // Inserting the alien
+                            insert_alien(new_alien);
                         }
 
                         break;
@@ -668,20 +622,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                 // Creating a new alien
                 Alien* new_alien = generate_random_alien(*alien_spawner, get_rand_int(0, 2));
                 map[new_alien->position[0]][new_alien->position[1]] = new_alien->type + 1;
-                // Activating alien
-                new_alien->status = 1;
-
-                // Insert Alien
-                for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                    if ((aliens + i)->status == 6) {
-                        *(aliens + i) = *new_alien;
-                        break;
-                    }
-                }
+                // Inserting the alien
+                insert_alien(new_alien);
 
                 printf("New alien was created\n");
                 // New ticks to create a new alien
-                ticks = 60 * get_rand_exp(alien_spawner->mean);
+                while ((ticks = 60 * get_rand_exp(alien_spawner->mean)) < 120);
                 printf("Time before next alien: %ds\n", ticks / 60);
             }
         }

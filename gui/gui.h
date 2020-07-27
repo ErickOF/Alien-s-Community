@@ -82,6 +82,14 @@ void update_mainwindow();
 void move_alien(Alien* alien);
 
 /**
+ * This function inserts a new aliens in the aliens array.
+ * 
+ * Inputs:
+ *      - Alien* new_alien: alien to insert.
+ */
+void insert_alien(Alien* new_alien);
+
+/**
  * This function destroy an alien in the clicked cell.
  * 
  * Inputs:

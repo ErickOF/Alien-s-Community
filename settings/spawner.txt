@@ -1,4 +1,4 @@
-mean:7
+mean:5
 alpha:30
 beta:20
 normal:50
