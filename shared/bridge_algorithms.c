@@ -44,10 +44,10 @@ void y_algorithm(Bridge *bridge) {
 }
 
 void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
-   // Lmutex_unlock(bridge->south_mutex);
+    Lmutex_unlock(bridge->south_mutex);
     bridge->direction = 0;
 
-    Alien *alien;
+    Alien alien;
     alien.status = 6;
 
 
@@ -70,17 +70,17 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
         for (int j = 0; j < max_index; j++) {                
             bridge->north_aliens[j] = bridge->north_aliens[j + 1];
         }
-        bridge->north_aliens[max_index] = *alien;
+        bridge->north_aliens[max_index] = alien;
     }
-    //Lmutex_unlock(bridge->north_mutex);
+    Lmutex_unlock(bridge->north_mutex);
 }
 
 void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
-    //*Lmutex_unlock(bridge->north_mutex);*//
+    Lmutex_unlock(bridge->north_mutex);
     bridge->direction = 1;
 
-    Alien *alien;
-    alien->status = 6;
+    Alien alien;
+    alien.status = 6;
 
     for (int i = 0; i < iterations; i++){
         //Busy Waiting
@@ -101,9 +101,9 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
         for (int j = 0; j < max_index; j++){
             bridge->south_aliens[j] = bridge->south_aliens[j + 1];
         }
-        bridge->south_aliens[max_index] = *alien;
+        bridge->south_aliens[max_index] = alien;
     }
-    //Lmutex_unlock(bridge->south_mutex);
+    Lmutex_unlock(bridge->south_mutex);
 }
 
 //***********************SEMAPHORE ALGORITHM****************************//
@@ -151,15 +151,15 @@ void sem_algorithm(Bridge *bridge){
 
 //***********************SURVIVAL ALGORITHM****************************//
 void survival_algorithm(Bridge *bridge){
-    //Lmutex_trylock(bridge->north_mutex);
-    //Lmutex_trylock(bridge->south_mutex);
+    Lmutex_trylock(bridge->north_mutex);
+    Lmutex_trylock(bridge->south_mutex);
     int north_max_index = bridge->north_aliens_number-1;
     int south_max_index = bridge->south_aliens_number-1;
     if(south_max_index >= 0){
         cross_south_aliens(bridge, bridge->south_aliens_number, south_max_index);
     }
-    //Lmutex_trylock(bridge->north_mutex);
-    //Lmutex_trylock(bridge->south_mutex);
+    Lmutex_trylock(bridge->north_mutex);
+    Lmutex_trylock(bridge->south_mutex);
     if(north_max_index >= 0){
         cross_north_aliens(bridge, bridge->north_aliens_number, north_max_index);
     }
@@ -170,10 +170,10 @@ void survival_algorithm(Bridge *bridge){
 //************************OTHER FUNCTIONS***************************//
 short check_weight(Bridge *bridge, float weight){
     float new_weight = weight + bridge->current_weight;
-    printf("Aliens weight: %f \n", weight);
-    printf("Bridge max weight: %f \n", bridge->max_weight);
-    printf("Bridge current weight: %f \n ", bridge->current_weight);
-    printf("Total weight if alien crosses: %f \n", new_weight);
+   // printf("Aliens weight: %f \n", weight);
+   // printf("Bridge max weight: %f \n", bridge->max_weight);
+   // printf("Bridge current weight: %f \n ", bridge->current_weight);
+   // printf("Total weight if alien crosses: %f \n", new_weight);
     if(new_weight > bridge->max_weight){
         return 1; //False: Can't cross
     }
