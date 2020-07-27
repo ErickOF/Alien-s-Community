@@ -9,8 +9,8 @@ int main() {
         .max_south_aliens = 10,
         .max_north_aliens = 10,
         .max_weight = 5,
-        .north_waiting_seconds = 0.00004,
-        .south_waiting_seconds = 0.00006
+        .north_waiting_seconds = 0.004,
+        .south_waiting_seconds = 0.006
     };
 
     Lmutex_init(&bridge.south_mutex, NULL);
