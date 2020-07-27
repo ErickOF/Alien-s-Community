@@ -10,6 +10,23 @@
 #include <sys/wait.h>
 #include <time.h>
 
+
+// Define manager thread
+lpthread_t manager_thread;
+/* Array of threads data
+
+    MAX_THREADS:            Defines the maximum available threads
+
+    short isInitialized:    Defines if the array is initialized
+
+    pid_t threads:          Array with the unkilled threads
+
+ */
+short isInitialized = 0;
+pid_t threads_pid[MAX_THREADS];
+lpthread_t* threads_ptr[MAX_THREADS];
+
+
 // Functions
 
 /**
@@ -78,7 +95,8 @@ pid_t Lthread_create(lpthread_t** lpthread_ptr,
     lpthreads_arguments_t* clone_args = allocate_mem(sizeof(lpthreads_arguments_t));
     clone_args->target_function = target_function;
     clone_args->fnctn_args = args;
-    pid_t thread_id = clone_call(&Lthread_end, stack + STACK_SIZE, clone_flags, clone_args);
+
+    pid_t thread_id = clone_call(Lthread_end, stack + STACK_SIZE, clone_flags, clone_args);
     
     // Allocate memory for the attributes and the structure
     lpthread_t* ptr = allocate_mem(sizeof(lpthread_t));
@@ -120,9 +138,9 @@ pid_t Lthread_create(lpthread_t** lpthread_ptr,
  *      struct lpthreads_arguments* clone_args  -   container for the function and args
  *
  */
-void Lthread_end(lpthreads_arguments_t* clone_args)
+int Lthread_end(void* args)
 {
-
+    lpthreads_arguments_t* clone_args = (lpthreads_arguments_t*) args;
     // Execute the function with the given arguments
     clone_args->target_function(clone_args->fnctn_args);
     // Free the memory 
@@ -142,7 +160,9 @@ void Lthread_end(lpthreads_arguments_t* clone_args)
             // Change the state
             threads_ptr[i]->state = FINISHED;
         }
-    }    
+    }
+
+    return 0;
 }
 
 

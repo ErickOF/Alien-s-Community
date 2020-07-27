@@ -1,4 +1,4 @@
-#include "lib/lpthreads_tests.hpp"
+#include "lib/lpthreads_tests.c"
 
 
 

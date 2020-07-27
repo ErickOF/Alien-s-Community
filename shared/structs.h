@@ -3,7 +3,7 @@
 
 
 
-#include "../lib/lpthreads.c"
+#include "../lib/lpthreads.h"
 
 
 /**

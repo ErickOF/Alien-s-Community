@@ -4,14 +4,14 @@
 
 #include <stdlib.h>
 
+
 // Define thread attributes
-const int STACK_SIZE = 65536;
+static const int STACK_SIZE = 65536;
+
 typedef struct lpthread_attr 
 {
 	int	    flags;
-
 	void*   stackaddr_attr;
-
 	size_t  stacksize_attr;
 } lpthread_attr_t;
 
@@ -28,11 +28,8 @@ enum lpthread_state
 typedef struct lpthread
 {
     pid_t                   thread_id;
-
     enum lpthread_state     state;
-
     lpthread_attr_t*        attributes;
-
 } lpthread_t;
 
 #endif /* PROJECT2_LIB_LPTHREADS_THREAD_H */

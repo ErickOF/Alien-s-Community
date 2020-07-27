@@ -1,27 +1,4 @@
-
-#ifndef PROJECT2_LIB_LPTHREADS_TOOLS_C
-#define PROJECT2_LIB_LPTHREADS_TOOLS_C
-
-#define _GNU_SOURCE             /* See feature_test_macros(7) */
-#include <sched.h>
-#include <stdlib.h>
-#include <stdio.h>
-#include <errno.h>
-
-#define FALSE 0
-#define TRUE 1
-
-
-
-// Structure to pass multiple arguments to the clone function 
-// and wrap it to call lpthread_end when execution has finished
-typedef struct lpthreads_arguments
-{
-    int (*target_function) (void*);
-    void* fnctn_args;
-} lpthreads_arguments_t;
-
-
+#include "lpthreads_tools.h"
 
 
 // Functions
@@ -72,7 +49,3 @@ int clone_call(     int (*target_function) (void*),
     return pid;
 
 }
-
-
-
-#endif /* PROJECT2_LIB_LPTHREADS_TOOLS_C */
