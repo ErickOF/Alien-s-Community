@@ -241,6 +241,8 @@ Alien* create_alpha_alien(AlienData data, short community) {
     alpha_alien->status = 0;
     alpha_alien->ticks = 0;
     alpha_alien->type = 1;
+
+    return alpha_alien;
 }
 
 Alien* create_beta_alien(AlienData data, short community) {
@@ -274,6 +276,8 @@ Alien* create_beta_alien(AlienData data, short community) {
     beta_alien->status = 0;
     beta_alien->ticks = 0;
     beta_alien->type = 2;
+
+    return beta_alien;
 }
 
 Alien* create_normal_alien(AlienData data, short community) {
@@ -300,4 +304,24 @@ Alien* create_normal_alien(AlienData data, short community) {
     normal_alien->status = 0;
     normal_alien->ticks = 0;
     normal_alien->type = 0;
+
+    return normal_alien;
+}
+
+Alien* create_intruder(AlienData data) {
+    // Creating Alien structure
+    Alien* intruder = malloc(sizeof(Alien));
+
+    // Setting information from AlienData
+    intruder->speed = 0.5 * data.speed;
+    intruder->status = 5;
+    intruder->ticks = 0;
+    intruder->type = 3;
+
+    return intruder;
+}
+
+int get_rand_int(int min, int max) {
+    // Random integer number
+    return rand() % (max - min) + min;
 }

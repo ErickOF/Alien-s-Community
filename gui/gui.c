@@ -235,6 +235,8 @@ void draw_alien_matrix() {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, alpha_alien_color);
             } else if (aliens_matrix[i][j] == 3) {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, beta_alien_color);
+            } else if (aliens_matrix[i][j] == 4) {
+                al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, intruder_color);
             }
         }
     }
@@ -421,12 +423,14 @@ void destroy_alien(short row, short col) {
 void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                      BridgeData* east_bridge, AlienSpawner* alien_spawner) {
     // Running program
-    int runnning = TRUE;
+    short runnning = TRUE;
     // Indicates when graphics are drawn
-    int redraw = FALSE;
+    short redraw = FALSE;
     // Indicates when map is clicked
-    int clicked = FALSE;
-    
+    short clicked = FALSE;
+    // Creates an intruder
+    aliens[0] = *create_intruder(*alien_spawner->alien_data);
+
     while (runnning) {
         Alien* new_alien;
 
@@ -588,6 +592,39 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             break;
                         // When enter was pressed, go to waiting window
                         case ALLEGRO_KEY_ENTER:
+                            if (aliens[0].status == 5) {
+                                // Position
+                                short row, col;
+                                // Indicates if the row and col are valid numbers
+                                short valid = FALSE;
+                                // Number of tries to get row and col
+                                short tries = 0;
+
+                                while (!valid && tries < 1000) {
+                                    // Get row a columns
+                                    row = get_rand_int(0, MAP_Y) > (MAP_Y / 2) ? 25 : 4;
+                                    col = get_rand_int(2, MAP_X - 2);
+
+                                    // Validate row and column
+                                    valid = map[row][col] == 1 && aliens_matrix[row][col] == 0;
+                                    // On try more
+                                    tries++;
+                                }
+
+                                printf("tries: %d (%d, %d)\n", tries, row, col);
+
+                                // If the position is valid
+                                if (valid) {
+                                    // Activating intruder
+                                    aliens[0].status = 1;
+                                    aliens[0].position[0] = row;
+                                    aliens[0].position[1] = col;
+                                    aliens[0].direction = get_rand_int(0, 4);
+                                    aliens[0].ticks = 0;
+                                    aliens_matrix[row][col] = 4;
+                                }
+                            }
+
                             break;
                         case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
                             printf("Mouse pressed\n");
@@ -595,6 +632,7 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                         default:
                             break;
                     }
+
                     break;
                 }
             default:

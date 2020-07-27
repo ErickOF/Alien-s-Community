@@ -90,5 +90,28 @@ Alien* create_beta_alien(AlienData data, short community);
  */
 Alien* create_normal_alien(AlienData data, short community);
 
+/**
+ * This function creates a intruder alien.
+ * 
+ * Inputs:
+ *      - AlienData data: alien data to create new intruder alien.
+ * 
+ * Returns:
+ *      An Alien structure representing the intruder alien.
+ */
+Alien* create_intruder(AlienData data);
+
+/**
+ * This function computes a random integer number between a given range.
+ * 
+ * Inputs:
+ *      - int min: min value.
+ *      - int max: max value.
+ * 
+ * Returns:
+ *      A new random integer number between min and max.
+ */
+int get_rand_int(int min, int max);
+
 
 #endif /* PROJECT2_SHARED_TOOLS_H */
