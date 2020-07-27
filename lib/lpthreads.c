@@ -10,6 +10,23 @@
 #include <sys/wait.h>
 #include <time.h>
 
+
+// Define manager thread
+lpthread_t manager_thread;
+/* Array of threads data
+
+    MAX_THREADS:            Defines the maximum available threads
+
+    short isInitialized:    Defines if the array is initialized
+
+    pid_t threads:          Array with the unkilled threads
+
+ */
+short isInitialized = 0;
+pid_t threads_pid[MAX_THREADS];
+lpthread_t* threads_ptr[MAX_THREADS];
+
+
 // Functions
 
 /**

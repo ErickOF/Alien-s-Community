@@ -48,9 +48,5 @@ run:
 	@./${APP}
 
 gui_test:
-	@gcc -c ${GUI}.c -o ${BUILD_FOLDER}/${GUI}.o ${ALLEGRO_FLAGS}
-	@gcc -c ${TOOLS}.c -o ${BUILD_FOLDER}/${TOOLS}.o ${ALLEGRO_FLAGS}
-	@gcc -c ${MAIN}.c -o ${BUILD_FOLDER}/${MAIN}.o ${ALLEGRO_FLAGS}
-	@gcc -o ${APP} ${GUI}.o ${MAIN}.o ${TOOLS}.o ${ALLEGRO_FLAGS}
-	@rm ${GUI}.o ${MAIN}.o ${TOOLS}.o
+	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS}
 	@./${APP}
