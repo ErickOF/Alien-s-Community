@@ -203,6 +203,10 @@ AlienSpawner* parse_spawner(char* data) {
         if (strcmp(param, "normal\0") == 0) {
             alien_spawner->normal = atof(value);
         }
+        // Check if the param is mode
+        if (strcmp(param, "mode\0") == 0) {
+            alien_spawner->mode = atoi(value);
+        }
 
         // Free memory
         free(param);

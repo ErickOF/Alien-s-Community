@@ -85,6 +85,7 @@ enum schedulers
     FIFO,
     LOTTERY
 };
+
 /**
  * Struct used to represent a Bridge.
  * 
@@ -153,6 +154,10 @@ struct bridge_data {
  * float alpha - percentage of alpha aliens.
  * float beta - percentage of beta aliens.
  * float normal - percentage of normal aliens.
+ * short mode - execution order.
+ *      - automatic: 1.
+ *      - manual:    0.
+ * AlienData* alien_data: loaded alien settings.
  * 
  */
 struct alien_spawner {
@@ -160,6 +165,7 @@ struct alien_spawner {
     float alpha;
     float beta;
     float normal;
+    short mode;
     AlienData* alien_data;
 } typedef AlienSpawner;
 

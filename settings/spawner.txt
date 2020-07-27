@@ -2,3 +2,4 @@ mean:0
 alpha:30
 beta:20
 normal:50
+mode:0

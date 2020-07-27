@@ -23,6 +23,8 @@ install:
 	sudo apt install liballegro-acodec5-dev liballegro-audio5-dev \
 		liballegro-image5-dev liballegro-dialog5-dev liballegro-ttf5-dev \
 		liballegro-physfs5-dev
+	# Themes library
+	sudo apt-get install gnome-themes-standard
 
 build:
 	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS}
