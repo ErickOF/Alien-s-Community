@@ -3,6 +3,7 @@
 
 #include "structs.h"
 #include <stdio.h>
+#include <time.h>
 
 /**
  * This function checks the conditions that the bridge
@@ -73,5 +74,7 @@ void sem_algorithm(Bridge *bridge);
  *      skfjskfjskfj
  */
 void survival_algorithm(Bridge *bridge);
+
+
 
 #endif /* PROJECT2_SHARED_BRIDGE_ALGORITHMS_H */

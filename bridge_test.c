@@ -10,6 +10,8 @@ int main() {
     bridge.max_south_aliens = 10;
     bridge.max_north_aliens = 10;
     bridge.max_weight = 5;
+    bridge.north_waiting_seconds = 2.4;
+    bridge.south_waiting_seconds = 2.4;
 
     bridge.south_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_south_aliens);
     bridge.north_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_north_aliens);
@@ -45,6 +47,7 @@ int main() {
 
     //*y_algorithm(&bridge);*//
     //*survival_algorithm(&bridge);*//
+    sem_algorithm(&bridge);
 
     free(bridge.north_aliens);
     free(bridge.south_aliens);
