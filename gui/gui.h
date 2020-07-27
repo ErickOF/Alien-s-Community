@@ -82,6 +82,15 @@ void update_mainwindow();
 void move_alien(Alien* alien);
 
 /**
+ * This function destroy an alien in the clicked cell.
+ * 
+ * Inputs:
+ *      - short row - pressed row.
+ *      - short col - pressed column.
+ */
+void destroy_alien(short row, short col);
+
+/**
  * This function displays main window
  * 
  * Inputs:
@@ -91,7 +100,7 @@ void move_alien(Alien* alien);
  *      - AlienSpawner* alien_spawner: alien spawner data.
  */
 void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
-                    BridgeData* east_bridge, AlienSpawner* alien_spawner);
+                     BridgeData* east_bridge, AlienSpawner* alien_spawner);
 
 
 #endif /* PROJECT2_GUI_GUI_H */

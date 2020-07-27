@@ -127,16 +127,17 @@ int init_all() {
         return FALSE;
     }
 
-    // Init keyboard detected
+    // Init keyboard detection
     al_install_keyboard();
+    // Init mouse detection
+    al_install_mouse();
 
-    // Register all events of display and timer
+    // Register all events
     al_register_event_source(event_queue,
                             al_get_display_event_source(display));
     al_register_event_source(event_queue,
                             al_get_timer_event_source(timer_update));
-    al_register_event_source(event_queue,
-                            al_get_keyboard_event_source());
+    al_register_event_source(event_queue, al_get_keyboard_event_source());
     
     // Defining colors
     alpha_alien_color = al_map_rgb(255, 0, 0);
@@ -179,6 +180,7 @@ void destroy_all() {
     al_destroy_timer(timer_update);
 
     al_uninstall_keyboard();
+    al_uninstall_mouse();
 
 	al_destroy_bitmap(img_community_a_house);
     al_destroy_bitmap(img_community_b_house);
@@ -262,7 +264,9 @@ void update_mainwindow() {
  *      - Alien* alien: alien to move.
  */
 void move_alien(Alien* alien) {
-    aliens_matrix[alien->position[0]][alien->position[1]] = 0;
+    int previous_position[2];
+    previous_position[0] = alien->position[0];
+    previous_position[1] = alien->position[1];
 
     // Check direction
     short direction = alien->direction;
@@ -330,7 +334,9 @@ void move_alien(Alien* alien) {
         case 2:
             // If the road continues to the left
             if (map[alien->position[0]][alien->position[1] - 1] == 1) {
-                alien->position[1]--;
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                }
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
                 if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
@@ -355,7 +361,9 @@ void move_alien(Alien* alien) {
         case 3:
             // If the road continues to the right
             if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
                 alien->position[1]++;
+                }
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
                 if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
@@ -381,7 +389,30 @@ void move_alien(Alien* alien) {
     }
 
     // Moving the alien in the matrix
+    aliens_matrix[previous_position[0]][previous_position[1]] = 0;
     aliens_matrix[alien->position[0]][alien->position[1]] = alien->type + 1;
+}
+
+/**
+ * This function destroy an alien in the clicked cell.
+ * 
+ * Inputs:
+ *      - short row - pressed row.
+ *      - short col - pressed column.
+ */
+void destroy_alien(short row, short col) {
+    // Check if an alien exists in that position
+    if (aliens_matrix[row][col] != 0) {
+        // Search alien
+        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+            if (aliens[i].position[0] == row && aliens[i].position[1] == col) {
+                // Kill alien
+                aliens_matrix[row][col] = 0;
+                aliens[i].status = 5;
+                break;
+            }
+        }
+    }
 }
 
 /**
@@ -389,12 +420,14 @@ void move_alien(Alien* alien) {
  */
 void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                      BridgeData* east_bridge, AlienSpawner* alien_spawner) {
-    // TRUE to show menu
-    int menu = TRUE;
+    // Running program
+    int runnning = TRUE;
     // Indicates when graphics are drawn
     int redraw = FALSE;
+    // Indicates when map is clicked
+    int clicked = FALSE;
     
-    while (menu) {
+    while (runnning) {
         Alien* new_alien;
 
         // Get event from queue
@@ -404,8 +437,9 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
         switch (event.type) {
             // When app is close, exit
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                menu = FALSE;
+                runnning = FALSE;
                 play = FALSE;
+
                 break;
             // When timer launches an event
             case ALLEGRO_EVENT_TIMER:
@@ -420,166 +454,195 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                 break;
             // When key was pressed
             case ALLEGRO_EVENT_KEY_DOWN:
-                switch(event.keyboard.keycode) {
-                    // Exit
-                    case ALLEGRO_KEY_ESCAPE:
-                        menu = FALSE;
-                        play = FALSE;
-                        break;
-                    // Alpha Alien from A Community
-                    case ALLEGRO_KEY_A:
-                        // printf("Creating new alpha alien in A Commmunity\n");
+                if (alien_spawner->mode == 0) {
+                    switch(event.keyboard.keycode) {
+                        // Exit
+                        case ALLEGRO_KEY_ESCAPE:
+                            runnning = FALSE;
+                            play = FALSE;
+                            break;
+                        // Alpha Alien from A Community
+                        case ALLEGRO_KEY_A:
+                            // printf("Creating new alpha alien in A Commmunity\n");
 
-                        // Create alien
-                        new_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
+                            // Create alien
+                            new_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
-                        
-                        break;
-                    // Beta Alien from A Community
-                    case ALLEGRO_KEY_B:
-                        // printf("Creating new beta alien in A Commmunity\n");
+                            
+                            break;
+                        // Beta Alien from A Community
+                        case ALLEGRO_KEY_B:
+                            // printf("Creating new beta alien in A Commmunity\n");
 
-                        // Create alien
-                        new_alien = create_beta_alien(*alien_spawner->alien_data, 0);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
+                            // Create alien
+                            new_alien = create_beta_alien(*alien_spawner->alien_data, 0);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
-                        
-                        break;
-                    // Normal Alien from A Community
-                    case ALLEGRO_KEY_N:
-                        // printf("Creating new normal alien in A Commmunity\n");
+                            
+                            break;
+                        // Normal Alien from A Community
+                        case ALLEGRO_KEY_N:
+                            // printf("Creating new normal alien in A Commmunity\n");
 
-                        // Create alien
-                        new_alien = create_normal_alien(*alien_spawner->alien_data, 0);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
+                            // Create alien
+                            new_alien = create_normal_alien(*alien_spawner->alien_data, 0);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
 
-                        break;
-                    // Alpha Alien from B Community
-                    case ALLEGRO_KEY_1:
-                        // printf("Creating new alpha alien in B Commmunity\n");
+                            break;
+                        // Alpha Alien from B Community
+                        case ALLEGRO_KEY_2:
+                            // printf("Creating new alpha alien in B Commmunity\n");
 
-                        // Create alien
-                        new_alien = create_alpha_alien(*alien_spawner->alien_data, 1);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
+                            // Create alien
+                            new_alien = create_alpha_alien(*alien_spawner->alien_data, 1);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
 
-                        break;
-                    // Beta Alien from B Community
-                    case ALLEGRO_KEY_2:
-                        // printf("Creating new beta alien in B Commmunity\n");
+                            break;
+                        // Beta Alien from B Community
+                        case ALLEGRO_KEY_3:
+                            // printf("Creating new beta alien in B Commmunity\n");
 
-                        // Create alien
-                        new_alien = create_beta_alien(*alien_spawner->alien_data, 1);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
+                            // Create alien
+                            new_alien = create_beta_alien(*alien_spawner->alien_data, 1);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
-                        
-                        break;
-                    // Normal Alien from B Community
-                    case ALLEGRO_KEY_3:
-                        // printf("Creating new normal alien in B Commmunity\n");
-                        // Create alien
-                        new_alien = create_normal_alien(*alien_spawner->alien_data, 1);
-                        aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
+                            
+                            break;
+                        // Normal Alien from B Community
+                        case ALLEGRO_KEY_1:
+                            // printf("Creating new normal alien in B Commmunity\n");
+                            // Create alien
+                            new_alien = create_normal_alien(*alien_spawner->alien_data, 1);
+                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
 
-                        /************ Running the Alien ************/
-                        new_alien->status = 1;
-                        /************ Running the Alien ************/
+                            /************ Running the Alien ************/
+                            new_alien->status = 1;
+                            /************ Running the Alien ************/
 
-                        // Insert Alien
-                        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                            if ((aliens + i)->status == 6) {
-                                *(aliens + i) = *new_alien;
-                                break;
+                            // Insert Alien
+                            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                                if ((aliens + i)->status == 6) {
+                                    *(aliens + i) = *new_alien;
+                                    break;
+                                }
                             }
-                        }
 
-                        break;
-                    // When enter was pressed, go to waiting window
-                    case ALLEGRO_KEY_ENTER:
-                        break;
-                    default:
-                        break;
+                            break;
+                        // When enter was pressed, go to waiting window
+                        case ALLEGRO_KEY_ENTER:
+                            break;
+                        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
+                            printf("Mouse pressed\n");
+                            break;
+                        default:
+                            break;
+                    }
+                    break;
                 }
-                break;
             default:
                 break;
         }
 
-        // Check if an alien has to move
-        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-            if ((aliens + i)->status == 1) {
-                if ((aliens + i)->ticks >= (aliens + i)->speed) {
-                    // printf("Moving alien %d, ticks %d\n", i, (aliens + i)->ticks);
-                    move_alien(aliens + i);
-                    (aliens + i)->ticks = 0;
-                }
-            }
+        // Detect mouse click
+        ALLEGRO_MOUSE_STATE state;
+        al_get_mouse_state(&state);
+
+        // If left button was pressed
+        if ((state.buttons & 1) && !clicked) {
+            clicked = TRUE;
+
+            destroy_alien(state.y / TILE_SIZE, state.x / TILE_SIZE);
+        } // If left button was released
+        else if (!state.buttons & 1) {
+            clicked = FALSE;
         }
 
         // Update main window
         if (redraw) {
+            // Check if an alien has to move
+            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                if ((aliens + i)->status == 1) {
+                    if ((aliens + i)->ticks >= (aliens + i)->speed) {
+                        // printf("Moving alien %d, ticks %d\n", i, (aliens + i)->ticks);
+                        move_alien(aliens + i);
+                        (aliens + i)->ticks = 0;
+                    }
+                }
+            }
+
             update_mainwindow();
             redraw = FALSE;
         }
 
         // Update display
         al_flip_display();
+    }
+
+    for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+        if (aliens[i].status != 6) {
+            printf("Alien #%d\n", i);
+            printf("Type: %s\n", aliens[i].type == 0 ? "Normal" : aliens[i].type == 1 ? "Alpha": aliens[i].type == 2 ? "Beta" : "Intruder");
+            printf("Priority: %d\n", aliens[i].priority);
+            printf("Execution time: %f\n", aliens[i].execution_time);
+            printf("Status: %d\n\n", aliens[i].status);
+        }
     }
 }
