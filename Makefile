@@ -9,7 +9,7 @@ ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog
 BRIDGE_ALGORITHMS=shared/bridge_algorithms
 BRIDGE_TEST=bridge_test
 
-LPTHREADS=lpthreads
+LPTHREADS=lib/lpthreads
 THREADS_TEST=thread_test
 BUILD_FOLDER=bin
 
@@ -25,15 +25,11 @@ install:
 		liballegro-physfs5-dev
 
 build:
-	@gcc -c ${GUI}.c -o ${GUI}.o ${ALLEGRO_FLAGS}
-	@gcc -c ${TOOLS}.c -o ${TOOLS}.o ${ALLEGRO_FLAGS}
-	@gcc -c ${MAIN}.c -o ${MAIN}.o ${ALLEGRO_FLAGS}
-	@gcc -o ${APP} ${GUI}.o ${MAIN}.o ${TOOLS}.o ${ALLEGRO_FLAGS}
-	@rm ${GUI}.o ${MAIN}.o ${TOOLS}.o
+	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS}
 
 thread_test:
-	#@gcc -c lib/${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
-	@gcc ${THREADS_TEST}.c -o ${BUILD_FOLDER}/${THREADS_TEST}
+	#@gcc -c ${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
+	@gcc ${THREADS_TEST}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c -o ${BUILD_FOLDER}/${THREADS_TEST}
 	@./${BUILD_FOLDER}/${THREADS_TEST}
 
 bridge_test:

@@ -21,6 +21,7 @@ union semun
     unsigned short  *array;
 };
 
+static key_t sem_counter = 0;
 // Post and wait
 static struct sembuf sem_wait = {0, -1, 0};
 static struct sembuf sem_post = {0, +1, 0};

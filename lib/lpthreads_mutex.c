@@ -1,9 +1,5 @@
 #include "lpthreads_mutex.h"
 
-
-key_t sem_counter = 0;
-
-
 // Functions
 /**
  *  This function creates a semaphore and manages errors
