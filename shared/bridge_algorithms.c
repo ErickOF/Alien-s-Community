@@ -58,11 +58,12 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
         while(crossing == 1){
             crossing = check_weight(bridge, bridge->north_aliens[0].weight);
             if (counter == 5){
+                printf("Waiting...\n");
                 break;
             }
             counter++;
         }
-
+        printf("Crossing from north-south \n");
         bridge->north_aliens_number -= 1;
         bridge->north_aliens[0].status = 1;
         bridge->current_weight += bridge->north_aliens[0].weight;
@@ -89,11 +90,12 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
         while(crossing == 1){
             crossing = check_weight(bridge, bridge->south_aliens[0].weight);
             if(counter == 5){
+                printf("Waiting...\n");
                 break;
             }
             counter++;
         }
-
+        printf("Crossing from south-north \n");
         bridge->south_aliens_number -= 1;
         bridge->south_aliens[0].status = 1;
         bridge->current_weight += bridge->south_aliens[0].weight;
@@ -111,22 +113,50 @@ void sem_algorithm(Bridge *bridge){
 
     clock_t begin;
     double time_spent;
-    unsigned int i;
 
-    /* Mark beginning time */
-    begin = clock();
-    printf("Beginning time: %ld \n", begin);
-    for (i = 0 ; 1; i++)
-        {
-        printf("hello\n");
-        /* Get CPU time since loop started */
+    if(bridge->north_aliens_number != 0){
+        /* Mark beginning time */
+        begin = clock();
+        unsigned int i;
         time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
-        printf("Time spent: %f \n", time_spent);
-        if (time_spent>=bridge->north_waiting_seconds)
-            break;
-        }
+        printf("Beginning time: %ld \n", begin);
 
-    //**bridge->south_waiting_seconds;**//
+        while(time_spent < bridge->north_waiting_seconds){
+            while(bridge->north_aliens_number > 0) {
+                cross_north_aliens(bridge, 1, bridge->north_aliens_number-1);
+
+                /* Get CPU time since loop started */
+                time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
+                printf("Time spent: %f \n", time_spent);
+
+                if (time_spent>=bridge->north_waiting_seconds)
+                    break;
+            }
+        time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
+        }
+    }
+
+    if(bridge->south_aliens_number != 0){
+        /* Mark beginning time */
+        begin = clock();
+        unsigned int i;
+        printf("Beginning time: %ld \n", begin);
+        time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
+
+        while(time_spent < bridge->south_waiting_seconds){
+            while(bridge->south_aliens_number > 0) {
+                cross_south_aliens(bridge, 1, bridge->south_aliens_number-1);
+
+                /* Get CPU time since loop started */
+                time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
+                printf("Time spent: %f \n", time_spent);
+                
+                if (time_spent >= bridge->south_waiting_seconds)
+                    break;
+            }
+        time_spent = (double)(clock() - begin) / CLOCKS_PER_SEC;
+        }    
+    }
 }
 
 //***********************SURVIVAL ALGORITHM****************************//
@@ -147,13 +177,13 @@ void survival_algorithm(Bridge *bridge){
 }
 
 
-//************************EXTRA FUNCTIONS***************************//
+//************************OTHER FUNCTIONS***************************//
 short check_weight(Bridge *bridge, float weight){
     float new_weight = weight + bridge->current_weight;
-    printf("Aliens weight: %f \n", weight);
-    printf("Bridge max weight: %f \n", bridge->max_weight);
-    printf("Bridge current weight: %f \n ", bridge->current_weight);
-    printf("Total weight if alien crosses: %f \n", new_weight);
+   //printf("Aliens weight: %f \n", weight);
+   //printf("Bridge max weight: %f \n", bridge->max_weight);
+   //printf("Bridge current weight: %f \n", bridge->current_weight);
+   //printf("Total weight if alien crosses: %f \n", new_weight);
     if(new_weight > bridge->max_weight){
         return 1; //False: Can't cross
     }

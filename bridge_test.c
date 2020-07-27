@@ -9,12 +9,13 @@ int main() {
         .max_south_aliens = 10,
         .max_north_aliens = 10,
         .max_weight = 5,
-        .north_waiting_seconds = 2.4,
-        .south_waiting_seconds = 2.4
+        .north_waiting_seconds = 0.004,
+        .south_waiting_seconds = 0.006
     };
 
     Lmutex_init(&bridge.south_mutex, NULL);
     Lmutex_init(&bridge.north_mutex, NULL);
+
 
     bridge.south_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_south_aliens);
     bridge.north_aliens = (Alien*) malloc(sizeof(Alien) * bridge.max_north_aliens);
