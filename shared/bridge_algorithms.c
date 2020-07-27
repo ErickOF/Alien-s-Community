@@ -115,7 +115,7 @@ void sem_algorithm(Bridge *bridge){
 
     /* Mark beginning time */
     begin = clock();
-    printf("Beginning time: %f \n", begin);
+    printf("Beginning time: %ld \n", begin);
     for (i = 0 ; 1; i++)
         {
         printf("hello\n");

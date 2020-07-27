@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 
+#include "../lib/lpthreads.h"
+
 /**
  * This function checks the conditions that the bridge
  * with the Algorithm Y shoul follow to let aliens cross
