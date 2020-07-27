@@ -12,19 +12,19 @@ int z[1000];
 int x[1000];
 int y[1000];
 
-void hey(){
+int hey(void* args){
 
     sleep(1);
 
-    
     printf("Hey its me child pid %i, am alive\n", getpid());
     sleep(1);
     printf("Now im gonna die\n");
 
+    return 0;
 }
 
 
-void no_mutex_count(){
+int no_mutex_count(void* args) {
 
     sleep(1);
 
@@ -40,9 +40,11 @@ void no_mutex_count(){
     }
     printf("Done \n\n");
 
+    return 0;
 }
 
-void mutex_count(lpthread_mutex_t* mutex){
+int mutex_count(void* args) {
+    lpthread_mutex_t* mutex = (lpthread_mutex_t*) args;
 
     sleep(1);
 
@@ -61,6 +63,7 @@ void mutex_count(lpthread_mutex_t* mutex){
     printf("Done \n\n");
     Lmutex_unlock(mutex);
 
+    return 0;
 }
 
 void saxpy(){
@@ -88,10 +91,9 @@ void creation_test(){
 }
 
 void mutex_test(){
-
-
     printf("\n\n ------- Now testing non mutex vs mutex printing ------ \n\n");
-    lpthread_t* thread1, thread2;
+    lpthread_t* thread1;
+    lpthread_t* thread2;
     lpthread_mutex_t* mutex;
 
     // Create mutex

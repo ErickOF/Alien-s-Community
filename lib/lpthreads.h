@@ -8,9 +8,9 @@
 
 
 
-#include "lpthreads_thread.h"
-#include "lpthreads_mutex.hpp"
-#include "lpthreads_tools.hpp"
+#include "lpthreads_thread.c"
+#include "lpthreads_mutex.c"
+#include "lpthreads_tools.c"
 
 
 
@@ -44,12 +44,12 @@ int sannity_check();
 
 // Create thread function
 pid_t Lthread_create(lpthread_t** lpthread_ptr,
-                    lpthread_attr_t** lpthread_attr, 
-                    int (*target_function) (void*), 
-                    void* args);
+                     lpthread_attr_t** lpthread_attr, 
+                     int (*target_function) (void*), 
+                     void* args);
 
 // Exit the process and set the thread as ready to join
-void Lthread_end(struct lpthreads_arguments* clone_args);
+int Lthread_end(void* args);
 
 // Yield back thread
 int Lthread_yield();
