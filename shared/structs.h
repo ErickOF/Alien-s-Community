@@ -66,17 +66,15 @@ struct alien {
 struct alien_data {
     float speed;
     float execution_time;
-    float weight;
+    int weight;
 } typedef AlienData;
-
-
-
 
 enum cardinals
 {
     NORTH,
     SOUTH
 };
+
 enum schedulers
 {
     ROUND_ROBIN,
@@ -140,7 +138,7 @@ struct bridge {
  */
 struct bridge_data {
     int length;
-    float max_weight;
+    int max_weight;
     int max_south_aliens;
     int max_north_aliens;
     char* algorithm;
@@ -168,5 +166,6 @@ struct alien_spawner {
     short mode;
     AlienData* alien_data;
 } typedef AlienSpawner;
+
 
 #endif /* PROJECT2_SHARED_STRUCTS_H */

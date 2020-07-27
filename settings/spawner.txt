@@ -1,5 +1,5 @@
-mean:0
+mean:7
 alpha:30
 beta:20
 normal:50
-mode:0
+mode:1

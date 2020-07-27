@@ -30,6 +30,9 @@ build:
 	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS}
 
 thread_test:
+	@if [ ! -d ${BUILD_DIR} ]; then \
+		mkdir ${BUILD_DIR}; \
+	fi
 	#@gcc -c ${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
 	@gcc ${THREADS_TEST}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c -o ${BUILD_FOLDER}/${THREADS_TEST}
 	@./${BUILD_FOLDER}/${THREADS_TEST}
@@ -43,5 +46,5 @@ run:
 	@./${APP}
 
 gui_test:
-	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS}
+	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS} -lm
 	@./${APP}

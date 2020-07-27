@@ -1,6 +1,8 @@
 #ifndef PROJECT2_SHARED_TOOL_H
 #define PROJECT2_SHARED_TOOL_H
 
+#include <limits.h>
+#include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -112,6 +114,32 @@ Alien* create_intruder(AlienData data);
  *      A new random integer number between min and max.
  */
 int get_rand_int(int min, int max);
+
+/**
+ * This function computes a random double number using an exponential
+ * distribution.
+ * 
+ * Inputs
+ *      - double mean: mean in seconds.
+ * 
+ * Returns
+ *      An random double number folling a exponential distribution.
+ * 
+ */
+double get_rand_exp(double mean);
+
+
+/**
+ * This function creates a random alien.
+ * 
+ * Inputs:
+ *      - AlienSpawner spawner: alien spawner with distribution data.
+ *      - short communiy: 0 to A community or 1 to B community.
+ * 
+ * Returns:
+ *      An Alien structure representing the new alien.
+ */
+Alien* generate_random_alien(AlienSpawner spawner, short community);
 
 
 #endif /* PROJECT2_SHARED_TOOLS_H */

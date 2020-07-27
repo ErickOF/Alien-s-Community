@@ -430,6 +430,9 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
     short clicked = FALSE;
     // Creates an intruder
     aliens[0] = *create_intruder(*alien_spawner->alien_data);
+    // Ticks to create a new alien
+    int ticks = 60 * get_rand_exp(alien_spawner->mean);
+    printf("Time before next alien: %ds\n", ticks / 60);
 
     while (runnning) {
         Alien* new_alien;
@@ -448,6 +451,7 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
             // When timer launches an event
             case ALLEGRO_EVENT_TIMER:
                 redraw = TRUE;
+                ticks--;
 
                 for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
                     if ((aliens + i)->status == 1) {
@@ -626,9 +630,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             }
 
                             break;
-                        case ALLEGRO_EVENT_MOUSE_BUTTON_DOWN:
-                            printf("Mouse pressed\n");
-                            break;
                         default:
                             break;
                     }
@@ -651,6 +652,30 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
         } // If left button was released
         else if (!state.buttons & 1) {
             clicked = FALSE;
+        }
+
+        // If mode is automatic
+        if (alien_spawner->mode == 1) {
+            if (ticks <= 0) {
+                // Creating a new alien
+                Alien* new_alien = generate_random_alien(*alien_spawner, get_rand_int(0, 2));
+                map[new_alien->position[0]][new_alien->position[1]] = new_alien->type + 1;
+                // Activating alien
+                new_alien->status = 1;
+
+                // Insert Alien
+                for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
+                    if ((aliens + i)->status == 6) {
+                        *(aliens + i) = *new_alien;
+                        break;
+                    }
+                }
+
+                printf("New alien was created\n");
+                // New ticks to create a new alien
+                ticks = 60 * get_rand_exp(alien_spawner->mean);
+                printf("Time before next alien: %ds\n", ticks / 60);
+            }
         }
 
         // Update main window

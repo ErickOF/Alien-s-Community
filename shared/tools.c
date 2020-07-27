@@ -79,7 +79,7 @@ AlienData* parse_alien(char* data) {
         }
         // Check if the param is weight
         if (strcmp(param, "weight\0") == 0) {
-            alien_data->weight = atof(value);
+            alien_data->weight = atoi(value);
         }
 
         // Free memory
@@ -127,7 +127,7 @@ BridgeData* parse_bridge(char* data) {
         }
         // Check if the param is max_weight
         if (strcmp(param, "max_weight\0") == 0) {
-            bridge_data->max_weight = atof(value);
+            bridge_data->max_weight = atoi(value);
         }
         // Check if the param is algorithm
         if (strcmp(param, "algorithm\0") == 0) {
@@ -324,4 +324,29 @@ Alien* create_intruder(AlienData data) {
 int get_rand_int(int min, int max) {
     // Random integer number
     return rand() % (max - min) + min;
+}
+
+double get_rand_exp(double mean) {
+    // Generate number
+    double u = rand() / (RAND_MAX + 1.0);
+    // Get exponential
+    return (mean * -log(1.0 - u));
+}
+
+Alien* generate_random_alien(AlienSpawner spawner, short community) {
+    // Creating Alien structure
+    Alien* new_alien;
+
+    // Random number to select alien
+    int new_alien_type = get_rand_int(0, 100);
+
+    if (new_alien_type < spawner.normal) {
+        new_alien = create_normal_alien(*spawner.alien_data, community);
+    } else if (new_alien_type < spawner.normal + spawner.alpha) {
+        new_alien = create_alpha_alien(*spawner.alien_data, community);
+    } else {
+        new_alien = create_beta_alien(*spawner.alien_data, community);
+    }
+
+    return new_alien;
 }
