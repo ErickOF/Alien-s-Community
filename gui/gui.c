@@ -462,15 +462,15 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                 break;
             // When key was pressed
             case ALLEGRO_EVENT_KEY_DOWN:
-                if (alien_spawner->mode == 0) {
-                    switch(event.keyboard.keycode) {
-                        // Exit
-                        case ALLEGRO_KEY_ESCAPE:
-                            runnning = FALSE;
-                            play = FALSE;
-                            break;
-                        // Alpha Alien from A Community
-                        case ALLEGRO_KEY_A:
+                switch(event.keyboard.keycode) {
+                    // Exit
+                    case ALLEGRO_KEY_ESCAPE:
+                        runnning = FALSE;
+                        play = FALSE;
+                        break;
+                    // Alpha Alien from A Community
+                    case ALLEGRO_KEY_A:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new alpha alien in A Commmunity\n");
 
                             // Create alien
@@ -488,10 +488,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
-                            
-                            break;
-                        // Beta Alien from A Community
-                        case ALLEGRO_KEY_B:
+                        }
+
+                        break;
+                    // Beta Alien from A Community
+                    case ALLEGRO_KEY_B:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new beta alien in A Commmunity\n");
 
                             // Create alien
@@ -509,10 +511,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
-                            
-                            break;
-                        // Normal Alien from A Community
-                        case ALLEGRO_KEY_N:
+                        }
+
+                        break;
+                    // Normal Alien from A Community
+                    case ALLEGRO_KEY_N:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new normal alien in A Commmunity\n");
 
                             // Create alien
@@ -530,10 +534,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
+                        }
 
-                            break;
-                        // Alpha Alien from B Community
-                        case ALLEGRO_KEY_2:
+                        break;
+                    // Alpha Alien from B Community
+                    case ALLEGRO_KEY_2:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new alpha alien in B Commmunity\n");
 
                             // Create alien
@@ -551,10 +557,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
+                        }
 
-                            break;
-                        // Beta Alien from B Community
-                        case ALLEGRO_KEY_3:
+                        break;
+                    // Beta Alien from B Community
+                    case ALLEGRO_KEY_3:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new beta alien in B Commmunity\n");
 
                             // Create alien
@@ -572,10 +580,12 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
-                            
-                            break;
-                        // Normal Alien from B Community
-                        case ALLEGRO_KEY_1:
+                        }
+
+                        break;
+                    // Normal Alien from B Community
+                    case ALLEGRO_KEY_1:
+                        if (alien_spawner->mode == 0) {
                             // printf("Creating new normal alien in B Commmunity\n");
                             // Create alien
                             new_alien = create_normal_alien(*alien_spawner->alien_data, 1);
@@ -592,49 +602,47 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                     break;
                                 }
                             }
+                        }
 
-                            break;
-                        // When enter was pressed, go to waiting window
-                        case ALLEGRO_KEY_ENTER:
-                            if (aliens[0].status == 5) {
-                                // Position
-                                short row, col;
-                                // Indicates if the row and col are valid numbers
-                                short valid = FALSE;
-                                // Number of tries to get row and col
-                                short tries = 0;
+                        break;
+                    // When enter was pressed, go to waiting window
+                    case ALLEGRO_KEY_ENTER:
+                        if (aliens[0].status == 5) {
+                            // Position
+                            short row, col;
+                            // Indicates if the row and col are valid numbers
+                            short valid = FALSE;
+                            // Number of tries to get row and col
+                            short tries = 0;
 
-                                while (!valid && tries < 1000) {
-                                    // Get row a columns
-                                    row = get_rand_int(0, MAP_Y) > (MAP_Y / 2) ? 25 : 4;
-                                    col = get_rand_int(2, MAP_X - 2);
+                            while (!valid && tries < 1000) {
+                                // Get row a columns
+                                row = get_rand_int(0, MAP_Y) > (MAP_Y / 2) ? 25 : 4;
+                                col = get_rand_int(2, MAP_X - 2);
 
-                                    // Validate row and column
-                                    valid = map[row][col] == 1 && aliens_matrix[row][col] == 0;
-                                    // On try more
-                                    tries++;
-                                }
-
-                                printf("tries: %d (%d, %d)\n", tries, row, col);
-
-                                // If the position is valid
-                                if (valid) {
-                                    // Activating intruder
-                                    aliens[0].status = 1;
-                                    aliens[0].position[0] = row;
-                                    aliens[0].position[1] = col;
-                                    aliens[0].direction = get_rand_int(0, 4);
-                                    aliens[0].ticks = 0;
-                                    aliens_matrix[row][col] = 4;
-                                }
+                                // Validate row and column
+                                valid = map[row][col] == 1 && aliens_matrix[row][col] == 0;
+                                // On try more
+                                tries++;
                             }
 
-                            break;
-                        default:
-                            break;
-                    }
+                            printf("tries: %d (%d, %d)\n", tries, row, col);
 
-                    break;
+                            // If the position is valid
+                            if (valid) {
+                                // Activating intruder
+                                aliens[0].status = 1;
+                                aliens[0].position[0] = row;
+                                aliens[0].position[1] = col;
+                                aliens[0].direction = get_rand_int(0, 4);
+                                aliens[0].ticks = 0;
+                                aliens_matrix[row][col] = 4;
+                            }
+                        }
+
+                        break;
+                    default:
+                        break;
                 }
             default:
                 break;
