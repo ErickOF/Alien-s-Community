@@ -122,6 +122,8 @@ struct bridge {
     enum schedulers calendar;
     short direction;
     int y;
+    double north_waiting_seconds;
+    double south_waiting_seconds;
 } typedef Bridge;
 
 /**
