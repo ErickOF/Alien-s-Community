@@ -284,6 +284,7 @@ void move_alien(Alien* alien) {
         (alien->position[0] == 16 && alien->position[1] == 48 && alien->community == 0)) {
         alien->status = 2;
         aliens_matrix[previous_position[0]][previous_position[1]] = 0;
+
         return;
     }
 
@@ -291,7 +292,7 @@ void move_alien(Alien* alien) {
         // Up
         case 0:
             if (map[alien->position[0] - 1][alien->position[1]] == 4) {
-                // alien->status = 3;
+                alien->status = 3;
             } else if (alien->position[0] == 6 && alien->position[1] == 27 && alien->community == 1) {
                 if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
                     alien->position[0]--;
@@ -375,7 +376,7 @@ void move_alien(Alien* alien) {
         // Down
         case 1:
             if (map[alien->position[0] + 1][alien->position[1]] == 4) {
-                // alien->status = 3;
+                alien->status = 3;
             } else if (alien->position[0] == 23 && alien->position[1] == 27 && alien->community == 0) {
                 if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
                     alien->position[0]++;
@@ -663,9 +664,14 @@ void move_alien(Alien* alien) {
  *      - Alien* alien: alien to run.
  */
 int run_alien(void* args) {
-    Alien* alien = (Alien*) args;
+    thread_args_alien_t* data = (thread_args_alien_t*) args;
+    Alien* alien = data->alien;
+    int pos = data->pos;
 
-    while (running) {
+    // Indicates when map is clicked
+    short clicked = FALSE;
+
+    while (running && alien->status < 5) {
         // Get event from queue
         ALLEGRO_EVENT event;
         al_wait_for_event(event_queue, &event);
@@ -678,11 +684,27 @@ int run_alien(void* args) {
                 if (alien->ticks >= alien->speed) {
                     Lmutex_trylock(mutex_move_aliens);
                     move_alien(alien);
+                    aliens[pos] = *alien;
                     Lmutex_unlock(mutex_move_aliens);
 
                     alien->ticks = 0;
                 }
             break;
+        }
+
+        // Detect mouse click
+        ALLEGRO_MOUSE_STATE state;
+        al_get_mouse_state(&state);
+
+        // If left button was pressed
+        if ((state.buttons & 1) && !clicked) {
+            clicked = TRUE;
+            alien->status = 5;
+            aliens[pos] = *alien;
+            aliens_matrix[alien->position[0]][alien->position[1]] = 0;
+        } // If left button was released
+        else if (!state.buttons & 1) {
+            clicked = FALSE;
         }
     }
 
@@ -705,30 +727,14 @@ void insert_alien(Alien* new_alien) {
     for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
         if ((aliens + i)->status == 6) {
             *(aliens + i) = *new_alien;
-            Lthread_create(NULL, NULL, &run_alien, (void*) new_alien);
-            break;
-        }
-    }
-}
 
-/**
- * This function destroy an alien in the clicked cell.
- * 
- * Inputs:
- *      - short row - pressed row.
- *      - short col - pressed column.
- */
-void destroy_alien(short row, short col) {
-    // Check if an alien exists in that position
-    if (aliens_matrix[row][col] != 0) {
-        // Search alien
-        for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-            if (aliens[i].position[0] == row && aliens[i].position[1] == col) {
-                // Kill alien
-                aliens_matrix[row][col] = 0;
-                aliens[i].status = 5;
-                break;
-            }
+            // Packed data
+            thread_args_alien_t *data = (thread_args_alien_t*) malloc(sizeof(thread_args_alien_t));
+            data->alien = new_alien;
+            data->pos = i;
+
+            Lthread_create(NULL, NULL, &run_alien, (void*) data);
+            break;
         }
     }
 }
@@ -743,8 +749,6 @@ void show_mainwindow(Bridge* west_bridge, Bridge* central_bridge,
 
     // Indicates when graphics are drawn
     short redraw = FALSE;
-    // Indicates when map is clicked
-    short clicked = FALSE;
     // Creates an intruder
     aliens[0] = *create_intruder(*alien_spawner->alien_data);
     // Ticks to create a new alien
@@ -889,20 +893,6 @@ void show_mainwindow(Bridge* west_bridge, Bridge* central_bridge,
                 }
             default:
                 break;
-        }
-
-        // Detect mouse click
-        ALLEGRO_MOUSE_STATE state;
-        al_get_mouse_state(&state);
-
-        // If left button was pressed
-        if ((state.buttons & 1) && !clicked) {
-            clicked = TRUE;
-
-            destroy_alien(state.y / TILE_SIZE, state.x / TILE_SIZE);
-        } // If left button was released
-        else if (!state.buttons & 1) {
-            clicked = FALSE;
         }
 
         // If mode is automatic

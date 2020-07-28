@@ -169,5 +169,10 @@ struct alien_spawner {
     AlienData* alien_data;
 } typedef AlienSpawner;
 
+struct thread_args_alien {
+    Alien* alien;
+    int pos;
+} typedef thread_args_alien_t;
+
 
 #endif /* PROJECT2_SHARED_STRUCTS_H */
