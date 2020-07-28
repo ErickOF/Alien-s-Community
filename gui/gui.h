@@ -12,6 +12,7 @@
 #include "gui_constants.h"
 #include "../shared/structs.h"
 #include "../shared/tools.h"
+#include "../lib/lpthreads.h"
 
 
 // Game Screen
@@ -42,6 +43,12 @@ ALLEGRO_COLOR street_color;
 int play;
 // All created aliens
 Alien* aliens;
+
+// Mutex to move aliens
+lpthread_mutex_t* mutex_move_aliens;
+
+// Running program
+static short running = TRUE;
 
 /**
  * This function loads all imagens.
@@ -109,6 +116,14 @@ void destroy_alien(short row, short col);
  */
 void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                      BridgeData* east_bridge, AlienSpawner* alien_spawner);
+
+/**
+ * This function run an alien in a thread.
+ * 
+ * Inputs:
+ *      - Alien* alien: alien to run.
+ */
+int run_alien(void* args);
 
 
 #endif /* PROJECT2_GUI_GUI_H */

@@ -54,5 +54,5 @@ run:
 	@./${APP}
 
 gui_test:
-	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${ALLEGRO_FLAGS} -lm
+	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${LPTHREADS}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c ${ALLEGRO_FLAGS} -lm
 	@./${APP}

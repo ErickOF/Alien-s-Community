@@ -656,15 +656,56 @@ void move_alien(Alien* alien) {
     aliens_matrix[alien->position[0]][alien->position[1]] = alien->type + 1;
 }
 
+/**
+ * This function run an alien in a thread.
+ * 
+ * Inputs:
+ *      - Alien* alien: alien to run.
+ */
+int run_alien(void* args) {
+    Alien* alien = (Alien*) args;
+
+    while (running) {
+        // Get event from queue
+        ALLEGRO_EVENT event;
+        al_wait_for_event(event_queue, &event);
+
+        switch (event.type) {
+            // When timer launches an event
+            case ALLEGRO_EVENT_TIMER:
+                alien->ticks++;
+
+                if (alien->ticks >= alien->speed) {
+                    Lmutex_trylock(mutex_move_aliens);
+                    move_alien(alien);
+                    Lmutex_unlock(mutex_move_aliens);
+
+                    alien->ticks = 0;
+                }
+            break;
+        }
+    }
+
+    return 0;
+}
+
+/**
+ * This function inserts a new aliens in the aliens array.
+ * 
+ * Inputs:
+ *      - Alien* new_alien: alien to insert.
+ */
 void insert_alien(Alien* new_alien) {
     /************ Running the Alien ************/
     new_alien->status = 1;
     /************ Running the Alien ************/
+    aliens_matrix[new_alien->position[0]][new_alien->position[1]] = new_alien->type + 1;
 
     // Search for a empty space
     for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
         if ((aliens + i)->status == 6) {
             *(aliens + i) = *new_alien;
+            Lthread_create(NULL, NULL, &run_alien, (void*) new_alien);
             break;
         }
     }
@@ -697,8 +738,9 @@ void destroy_alien(short row, short col) {
  */
 void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                      BridgeData* east_bridge, AlienSpawner* alien_spawner) {
-    // Running program
-    short runnning = TRUE;
+    // Init mutex
+    Lmutex_init(&mutex_move_aliens, NULL);
+
     // Indicates when graphics are drawn
     short redraw = FALSE;
     // Indicates when map is clicked
@@ -709,7 +751,7 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
     int ticks = 60 * get_rand_exp(alien_spawner->mean);
     printf("Time before next alien: %ds\n", ticks / 60);
 
-    while (runnning) {
+    while (running) {
         Alien* new_alien;
 
         // Get event from queue
@@ -719,7 +761,7 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
         switch (event.type) {
             // When app is close, exit
             case ALLEGRO_EVENT_DISPLAY_CLOSE:
-                runnning = FALSE;
+                running = FALSE;
                 play = FALSE;
 
                 break;
@@ -728,19 +770,13 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                 redraw = TRUE;
                 ticks--;
 
-                for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                    if ((aliens + i)->status == 1) {
-                        (aliens + i)->ticks += 1;
-                    }
-                }
-
                 break;
             // When key was pressed
             case ALLEGRO_EVENT_KEY_DOWN:
                 switch(event.keyboard.keycode) {
                     // Exit
                     case ALLEGRO_KEY_ESCAPE:
-                        runnning = FALSE;
+                        running = FALSE;
                         play = FALSE;
                         break;
                     // Alpha Alien from A Community
@@ -750,7 +786,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
                             // Create alien
                             new_alien = create_alpha_alien(*alien_spawner->alien_data, 0);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -763,7 +798,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
                             // Create alien
                             new_alien = create_beta_alien(*alien_spawner->alien_data, 0);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -776,7 +810,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
                             // Create alien
                             new_alien = create_normal_alien(*alien_spawner->alien_data, 0);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -789,7 +822,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
                             // Create alien
                             new_alien = create_alpha_alien(*alien_spawner->alien_data, 1);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 2;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -802,7 +834,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
                             // Create alien
                             new_alien = create_beta_alien(*alien_spawner->alien_data, 1);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 3;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -814,7 +845,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                             // printf("Creating new normal alien in B Commmunity\n");
                             // Create alien
                             new_alien = create_normal_alien(*alien_spawner->alien_data, 1);
-                            aliens_matrix[new_alien->position[0]][new_alien->position[1]] = 1;
                             // Inserting the alien
                             insert_alien(new_alien);
                         }
@@ -893,17 +923,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
 
         // Update main window
         if (redraw) {
-            // Check if an alien has to move
-            for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
-                if ((aliens + i)->status == 1) {
-                    if ((aliens + i)->ticks >= (aliens + i)->speed) {
-                        // printf("Moving alien %d, ticks %d\n", i, (aliens + i)->ticks);
-                        move_alien(aliens + i);
-                        (aliens + i)->ticks = 0;
-                    }
-                }
-            }
-
             update_mainwindow();
             redraw = FALSE;
         }
@@ -923,4 +942,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
             printf("Status: %d\n\n", aliens[i].status);
         }
     }
+
+    Lmutex_destroy(mutex_move_aliens);
 }
