@@ -43,8 +43,8 @@ int main() {
         bridge.north_aliens[i].weight = 2;
     }
     
-    y_algorithm(&bridge);
-    //survival_algorithm(&bridge);
+    //y_algorithm(&bridge);
+    survival_algorithm(&bridge);
     //sem_algorithm(&bridge);
 
     free(bridge.north_aliens);
