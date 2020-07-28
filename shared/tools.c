@@ -157,6 +157,7 @@ BridgeData* parse_bridge(char* data) {
 }
 
 AlienSpawner* parse_spawner(char* data) {
+    // Create new alien spawner
     AlienSpawner* alien_spawner = (AlienSpawner*) malloc(sizeof(AlienSpawner));
     int i = 0;
 
@@ -237,6 +238,7 @@ Alien* create_alpha_alien(AlienData data, short community) {
         alpha_alien->direction = 1;
     }
 
+    alpha_alien->community = community;
     alpha_alien->priority = 2;
     alpha_alien->status = 0;
     alpha_alien->ticks = 0;
@@ -272,6 +274,7 @@ Alien* create_beta_alien(AlienData data, short community) {
         beta_alien->direction = 1;
     }
 
+    beta_alien->community = community;
     beta_alien->priority = 1;
     beta_alien->status = 0;
     beta_alien->ticks = 0;
@@ -300,6 +303,7 @@ Alien* create_normal_alien(AlienData data, short community) {
         normal_alien->direction = 1;
     }
 
+    normal_alien->community = community;
     normal_alien->priority = 2;
     normal_alien->status = 0;
     normal_alien->ticks = 0;

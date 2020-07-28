@@ -9,22 +9,22 @@ int map[MAP_Y][MAP_X] = {{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 
                          {0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                          {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
                          {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
-                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 5, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 5, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
+                         {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 5, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 5, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
                          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
                          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0},
                          {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 1, 0, 0, 0, 0, 0},
@@ -208,6 +208,9 @@ void draw_map() {
             case 4:
                 color = bridge_color;
                 break;
+            case 5:
+                color = street_color;
+                break;
             default:
                 color = background_color;
                 break;
@@ -231,12 +234,16 @@ void draw_alien_matrix() {
             // Draw normal alien
             if (aliens_matrix[i][j] == 1) {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, normal_alien_color);
+                al_draw_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, al_map_rgb(0, 0, 0), 2);
             } else if (aliens_matrix[i][j] == 2) {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, alpha_alien_color);
+                al_draw_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, al_map_rgb(0, 0, 0), 2);
             } else if (aliens_matrix[i][j] == 3) {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, beta_alien_color);
+                al_draw_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, al_map_rgb(0, 0, 0), 2);
             } else if (aliens_matrix[i][j] == 4) {
                 al_draw_filled_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, intruder_color);
+                al_draw_circle(j * TILE_SIZE + TILE_SIZE / 2, i * TILE_SIZE + TILE_SIZE / 2, TILE_SIZE / 2, al_map_rgb(0, 0, 0), 2);
             }
         }
     }
@@ -273,11 +280,72 @@ void move_alien(Alien* alien) {
     // Check direction
     short direction = alien->direction;
 
+    if ((alien->position[0] == 13 && alien->position[1] == 5 && alien->community == 1) ||
+        (alien->position[0] == 16 && alien->position[1] == 48 && alien->community == 0)) {
+        alien->status = 2;
+        aliens_matrix[previous_position[0]][previous_position[1]] = 0;
+        return;
+    }
+
     switch (direction) {
         // Up
         case 0:
-            // If there's an avenue up
-            if (map[alien->position[0] - 1][alien->position[1]] == 3) {
+            if (map[alien->position[0] - 1][alien->position[1]] == 4) {
+                // alien->status = 3;
+            } else if (alien->position[0] == 6 && alien->position[1] == 27 && alien->community == 1) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                }
+            } // If there's a street up
+            else if (map[alien->position[0] - 1][alien->position[1]] == 2) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    // If there's background to the left or right
+                    if (map[alien->position[0]][alien->position[1] - 1] == 0 ||
+                        map[alien->position[0]][alien->position[1] + 1] == 0) {
+                        alien->position[0]--;
+                    }
+                }
+            } // If there's an avenue up
+            else if (map[alien->position[0] - 1][alien->position[1]] == 3) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+
+                    // If alien is on the road
+                    if (map[alien->position[0]][alien->position[1]] == 1) {
+                        // Random direction
+                        alien->direction = get_rand_int(2, 4);
+                    } else {
+                        if (map[alien->position[0]][alien->position[1] + 1] == 0) {
+                            alien->direction = 2;
+                        } else if (map[alien->position[0]][alien->position[1] - 1] == 0) {
+                            alien->direction = 3;
+                        }
+                    }
+                }
+            } // If there's an avenue to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 3) {
+                // If there's an avenue to the right
+                if (map[alien->position[0]][alien->position[1] + 1] == 3) {
+                    // Go to the right
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                            alien->position[1]++;
+                            alien->direction = 3;
+                        }
+                    } // Go to the left
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                            alien->position[1]--;
+                            alien->direction = 2;
+                        }
+                    }
+                } // Continues left
+                else {
+                    if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                        alien->position[1]--;
+                        alien->direction = 2;
+                    }
+                }
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
                 if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
@@ -302,11 +370,71 @@ void move_alien(Alien* alien) {
                     alien->direction = 1;
                 }
             }
+
             break;
         // Down
         case 1:
-            // If there's an avenue up
-            if (map[alien->position[0] + 1][alien->position[1]] == 3) {
+            if (map[alien->position[0] + 1][alien->position[1]] == 4) {
+                // alien->status = 3;
+            } else if (alien->position[0] == 23 && alien->position[1] == 27 && alien->community == 0) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                }
+            } // If there's a street down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 5) {
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    // If there's background to the left or right
+                    if (map[alien->position[0]][alien->position[1] - 2] == 0 ||
+                        map[alien->position[0]][alien->position[1] + 2] == 0) {
+                        alien->position[0]++;
+                    }
+                }
+            } // If there's an avenue down
+            else if (map[alien->position[0] + 1][alien->position[1]] == 3) {
+                if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+
+                    if (map[alien->position[0]][alien->position[1] + 2] == 0) {
+                        alien->direction = 2;
+                    } else if (map[alien->position[0]][alien->position[1] - 2] == 0) {
+                        alien->direction = 3;
+                    } else {
+                        if (map[alien->position[0]][alien->position[1]] == 1) {
+                            // Random direction
+                            alien->direction = get_rand_int(2, 4) == 2 ? 1 : 3;
+                        } else {
+                            if (map[alien->position[0]][alien->position[1] + 1] == 0) {
+                                alien->direction = 2;
+                            } else if (map[alien->position[0]][alien->position[1] - 1] == 0) {
+                                alien->direction = 3;
+                            }
+                        }
+                    }
+                }
+            } // If there's an avenue to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 3) {
+                // If there's an avenue to the right
+                if (map[alien->position[0]][alien->position[1] + 1] == 3) {
+                    // Go to the right
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                            alien->position[1]++;
+                            alien->direction = 3;
+                        }
+                    } // Go to the left
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                            alien->position[1]--;
+                            alien->direction = 2;
+                        }
+                    }
+                } // Continues left
+                else {
+                    if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                        alien->position[1]--;
+                        alien->direction = 2;
+                    }
+                }
             } // If the road continues down
             else if (map[alien->position[0] + 1][alien->position[1]] == 1) {
                 if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
@@ -331,11 +459,77 @@ void move_alien(Alien* alien) {
                     alien->direction = 0;
                 }
             }
+
             break;
         // Left
         case 2:
-            // If the road continues to the left
-            if (map[alien->position[0]][alien->position[1] - 1] == 1) {
+            if (alien->position[0] == 6 && alien->position[1] == 27 && alien->community == 1) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                    direction = 0;
+                }
+            } else if (alien->position[0] == 23 && alien->position[1] == 27 && alien->community == 0) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                    direction = 1;
+                }
+            } // If there's a street up
+            else if(map[alien->position[0] - 1][alien->position[1]] == 2 && alien->community == 1) {
+                // If there's background to the left
+                if (map[alien->position[0]][alien->position[1] - 1] == 0) {
+                    if (aliens_matrix[alien->position[0] - 1][alien->position[0]] == 0) {
+                        alien->position[0]--;
+                        alien->direction = 0;
+                    }
+                } // Road continues to the left
+                else {
+                    // Go up
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                            alien->position[0]--;
+                            alien->direction = 0;
+                        }
+                    } // Go to the left
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                            alien->position[1]--;
+                        }
+                    }
+                }
+            } // If there's a street down
+            else if(map[alien->position[0] + 1][alien->position[1]] == 5 && alien->community == 0) {
+                // If there's background to the left
+                if (map[alien->position[0]][alien->position[1] - 2] == 0) {
+                    if (aliens_matrix[alien->position[0] + 1][alien->position[0]] == 0) {
+                        alien->position[0]++;
+                        alien->direction = 1;
+                    }
+                } // Road continues to the left
+                else {
+                    // Go down
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                            alien->position[0]++;
+                            alien->direction = 0;
+                        }
+                    } // Go to the left
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                            alien->position[1]--;
+                        }
+                    }
+                }
+            } // If there's an avenue to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 3) {
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                }
+            } else if (map[alien->position[0]][alien->position[1] - 1] == 5 && alien->community == 1) {
+                if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
+                    alien->position[1]--;
+                }
+            } // If the road continues to the left
+            else if (map[alien->position[0]][alien->position[1] - 1] == 1) {
                 if (aliens_matrix[alien->position[0]][alien->position[1] - 1] == 0) {
                     alien->position[1]--;
                 }
@@ -358,13 +552,79 @@ void move_alien(Alien* alien) {
                     alien->direction = 3;
                 }
             }
+
             break;
         // Right
         case 3:
-            // If the road continues to the right
-            if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+            if (alien->position[0] == 6 && alien->position[1] == 27 && alien->community == 1) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]--;
+                    direction = 0;
+                }
+            } else if (alien->position[0] == 23 && alien->position[1] == 27 && alien->community == 0) {
+                if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                    alien->position[0]++;
+                    direction = 1;
+                }
+            } // If there's a street up
+            else if(map[alien->position[0] - 1][alien->position[1]] == 2) {
+                // If there's background to the right
+                if (map[alien->position[0]][alien->position[1] + 1] == 0) {
+                    if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                        alien->position[0]--;
+                        alien->direction = 0;
+                    }
+                } // Road continues to the right
+                else {
+                    // Go up
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0] - 1][alien->position[1]] == 0) {
+                            alien->position[0]--;
+                            alien->direction = 0;
+                        }
+                    } // Go to the right
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                            alien->position[1]++;
+                        }
+                    }
+                }
+            } // If there's a street down
+            else if(map[alien->position[0] + 1][alien->position[1]] == 5) {
+                // If there's background to the right
+                if (map[alien->position[0]][alien->position[1] + 2] == 0) {
+                    if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                        alien->position[0]++;
+                        alien->direction = 1;
+                    }
+                } // Road continues to the right
+                else {
+                    // Go down
+                    if (get_rand_int(0, 2) == 0) {
+                        if (aliens_matrix[alien->position[0] + 1][alien->position[1]] == 0) {
+                            alien->position[0]++;
+                            alien->direction = 1;
+                        }
+                    } // Go to the right
+                    else {
+                        if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                            alien->position[1]++;
+                        }
+                    }
+                }
+            } // If there's an avenue to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 3) {
                 if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
-                alien->position[1]++;
+                    alien->position[1]++;
+                }
+            } else if (map[alien->position[0]][alien->position[1] + 1] == 5 && alien->community == 1) {
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                    alien->position[1]++;
+                }
+            } // If the road continues to the right
+            else if (map[alien->position[0]][alien->position[1] + 1] == 1) {
+                if (aliens_matrix[alien->position[0]][alien->position[1] + 1] == 0) {
+                    alien->position[1]++;
                 }
             } // If the road continues up
             else if (map[alien->position[0] - 1][alien->position[1]] == 1) {
@@ -385,6 +645,7 @@ void move_alien(Alien* alien) {
                     alien->direction = 2;
                 }
             }
+
             break;
         default:
             break;
@@ -580,8 +841,6 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                                 tries++;
                             }
 
-                            printf("tries: %d (%d, %d)\n", tries, row, col);
-
                             // If the position is valid
                             if (valid) {
                                 // Activating intruder
@@ -628,7 +887,7 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
                 printf("New alien was created\n");
                 // New ticks to create a new alien
                 while ((ticks = 60 * get_rand_exp(alien_spawner->mean)) < 120);
-                printf("Time before next alien: %ds\n", ticks / 60);
+                printf("Time before next alien: %ds\n\n", ticks / 60);
             }
         }
 
@@ -652,6 +911,8 @@ void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
         // Update display
         al_flip_display();
     }
+
+    printf("\n");
 
     for (int i = 0; i < MAX_ALIENS_NUMBER; i++) {
         if (aliens[i].status != 6) {

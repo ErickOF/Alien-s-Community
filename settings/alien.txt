@@ -1,3 +1,3 @@
-speed:60
+speed:20
 max_execution_time:100
 weight:10

@@ -41,6 +41,7 @@
  *     - left:  2
  *     - right: 3
  * short ticks - indicates how many ticks have passed since creation.
+ * short origin - indicates if the alien is from A or B community.
  */
 struct alien {
     // (x, y)
@@ -53,6 +54,7 @@ struct alien {
     int weight;
     short direction;
     short ticks;
+    short community;
 } typedef Alien;
 
 /**
