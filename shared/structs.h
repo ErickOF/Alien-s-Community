@@ -79,7 +79,7 @@ enum schedulers
 {
     ROUND_ROBIN,
     PRIORITY,
-    SPF,
+    SJF,
     FIFO,
     LOTTERY
 };

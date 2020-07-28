@@ -11,6 +11,9 @@ BRIDGE_TEST=bridge_test
 
 LPTHREADS=lib/lpthreads
 THREADS_TEST=thread_test
+
+SCHEDULER_TEST=scheduler_test
+
 BUILD_FOLDER=bin
 
 
@@ -36,6 +39,11 @@ thread_test:
 	#@gcc -c ${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
 	@gcc ${THREADS_TEST}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c -o ${BUILD_FOLDER}/${THREADS_TEST}
 	@./${BUILD_FOLDER}/${THREADS_TEST}
+
+scheduler_test:
+	#@gcc -c lib/${LPTHREADS}.c -o ${BUILD_FOLDER}/${LPTHREADS}.o
+	@gcc ${SCHEDULER_TEST}.c -o ${BUILD_FOLDER}/${SCHEDULER_TEST}
+	@./${BUILD_FOLDER}/${SCHEDULER_TEST}
 
 bridge_test:
 	@gcc -o ${BRIDGE_TEST} ${BRIDGE_TEST}.c ${BRIDGE_ALGORITHMS}.c ${LPTHREADS}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c
