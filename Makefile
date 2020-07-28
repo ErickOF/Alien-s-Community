@@ -3,6 +3,7 @@
 MAIN=main
 GUI=gui/gui
 TOOLS=shared/tools
+SCHEDULER=scheduler/scheduler
 APP=app
 ALLEGRO_FLAGS=-lallegro_primitives -lallegro_ttf -lallegro_font -lallegro_dialog -lallegro_color -lallegro_image -lallegro
 
@@ -54,5 +55,5 @@ run:
 	@./${APP}
 
 gui_test:
-	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${LPTHREADS}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c ${ALLEGRO_FLAGS} -lm
+	@gcc -o ${APP} ${GUI}.c ${MAIN}.c ${TOOLS}.c ${LPTHREADS}.c ${LPTHREADS}_mutex.c ${LPTHREADS}_tools.c ${SCHEDULER}.c ${ALLEGRO_FLAGS} -lm
 	@./${APP}

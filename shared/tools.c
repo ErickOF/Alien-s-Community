@@ -137,7 +137,17 @@ BridgeData* parse_bridge(char* data) {
         // Check if the param is calendar
         if (strcmp(param, "calendar\0") == 0) {
             // Assign calendar here later
-            //bridge_data->calendar = value;
+            if (strcmp(value, "fifo")) {
+                bridge_data->calendar = FIFO;
+            } else if (strcmp(value, "priority")) {
+                bridge_data->calendar = PRIORITY;
+            } else if (strcmp(value, "sjf")) {
+                bridge_data->calendar = SJF;
+            } else if (strcmp(value, "round_robin")) {
+                bridge_data->calendar = FIFO;
+            }  else if (strcmp(value, "lottery")) {
+                bridge_data->calendar = LOTTERY;
+            }
         }
         // Check if the param is max_north_aliens
         if (strcmp(param, "max_north_aliens\0") == 0) {
@@ -323,6 +333,33 @@ Alien* create_intruder(AlienData data) {
     intruder->type = 3;
 
     return intruder;
+}
+
+Bridge* create_bridge(BridgeData* bridge_data) {
+    Bridge* bridge = (Bridge*) malloc(sizeof(Bridge));
+
+    // Setting data
+    bridge->calendar = bridge_data->calendar;
+    bridge->length = bridge_data->length;
+    bridge->max_north_aliens = bridge_data->max_north_aliens;
+    bridge->max_south_aliens = bridge_data->max_south_aliens;
+    bridge->max_weight = bridge_data->max_weight;
+
+    // Init data
+    bridge->current_weight = 0;
+    bridge->direction = 1;
+    bridge->north_aliens = (Alien*) malloc(sizeof(Alien) * bridge_data->max_north_aliens);
+    bridge->north_aliens_number = 0;
+    bridge->north_waiting_seconds = 1;
+    bridge->south_aliens = (Alien*) malloc(sizeof(Alien) * bridge_data->max_south_aliens);
+    bridge->south_aliens_number = 0;
+    bridge->south_waiting_seconds = 1;
+
+    // Init mutex
+    Lmutex_init(&bridge->north_mutex, NULL);
+    Lmutex_init(&bridge->south_mutex, NULL);
+    
+    return bridge;
 }
 
 int get_rand_int(int min, int max) {

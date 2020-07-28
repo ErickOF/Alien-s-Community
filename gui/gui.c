@@ -736,8 +736,8 @@ void destroy_alien(short row, short col) {
 /**
  * This function displays main window
  */
-void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
-                     BridgeData* east_bridge, AlienSpawner* alien_spawner) {
+void show_mainwindow(Bridge* west_bridge, Bridge* central_bridge,
+                     Bridge* east_bridge, AlienSpawner* alien_spawner) {
     // Init mutex
     Lmutex_init(&mutex_move_aliens, NULL);
 

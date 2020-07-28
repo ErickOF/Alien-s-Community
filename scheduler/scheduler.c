@@ -1,10 +1,4 @@
-#ifndef PROJECT2_SCHEDULER_C
-#define PROJECT2_SCHEDULER_C
-
-#include "../shared/structs.h"
-#include "../lib/lpthreads.c"
-#include <stdlib.h>
-
+#include "scheduler.h"
 
 
 void sjf_sch(Alien* bridge_aliens, int current_max){
@@ -151,6 +145,3 @@ int scheduler(  Bridge* bridge,
 
 }
 
-
-
-#endif /* PROJECT2_SCHEDULER_C */

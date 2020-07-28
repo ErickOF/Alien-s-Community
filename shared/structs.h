@@ -144,7 +144,7 @@ struct bridge_data {
     int max_south_aliens;
     int max_north_aliens;
     char* algorithm;
-    char* calendar;
+    enum schedulers calendar;
 } typedef BridgeData;
 
 /**

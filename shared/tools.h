@@ -104,6 +104,17 @@ Alien* create_normal_alien(AlienData data, short community);
 Alien* create_intruder(AlienData data);
 
 /**
+ * This function creates a bridge.
+ * 
+ * Inputs:
+ *      - Bridge data: bridge data used to create the bridge.
+ * 
+ * Returns:
+ *      A Bridge structure representing the new bridge.
+ */
+Bridge* create_bridge(BridgeData* bridge_data);
+
+/**
  * This function computes a random integer number between a given range.
  * 
  * Inputs:

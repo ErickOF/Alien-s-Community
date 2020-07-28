@@ -13,15 +13,18 @@ int main() {
     free(content);
     
     content = read_file("settings/central_bridge.txt");
-    BridgeData* central_bridge = parse_bridge(content);
+    BridgeData* central_bridge_data = parse_bridge(content);
+    Bridge* central_bridge = create_bridge(central_bridge_data);
     free(content);
 
     content = read_file("settings/east_bridge.txt");
-    BridgeData* east_bridge = parse_bridge(content);
+    BridgeData* east_bridge_data = parse_bridge(content);
+    Bridge* east_bridge = create_bridge(east_bridge_data);
     free(content);
 
     content = read_file("settings/west_bridge.txt");
-    BridgeData* west_bridge = parse_bridge(content);
+    BridgeData* west_bridge_data = parse_bridge(content);
+    Bridge* west_bridge = create_bridge(west_bridge_data);
     free(content);
 
     content = read_file("settings/spawner.txt");
@@ -44,7 +47,19 @@ int main() {
     // Delete all components
     destroy_all();
 
+    // Destroy mutes
+    Lmutex_destroy(central_bridge->north_mutex);
+    Lmutex_destroy(central_bridge->south_mutex);
+    Lmutex_destroy(east_bridge->north_mutex);
+    Lmutex_destroy(east_bridge->south_mutex);
+    Lmutex_destroy(west_bridge->north_mutex);
+    Lmutex_destroy(west_bridge->south_mutex);
+
+    // Free memory
     free(alien);
+    free(central_bridge_data);
+    free(east_bridge_data);
+    free(west_bridge_data);
     free(central_bridge);
     free(east_bridge);
     free(west_bridge);

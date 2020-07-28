@@ -10,9 +10,10 @@
 #include <allegro5/allegro_ttf.h>
 
 #include "gui_constants.h"
+#include "../lib/lpthreads.h"
+#include "../scheduler/scheduler.h"
 #include "../shared/structs.h"
 #include "../shared/tools.h"
-#include "../lib/lpthreads.h"
 
 
 // Game Screen
@@ -114,8 +115,8 @@ void destroy_alien(short row, short col);
  *      - Bridge* east_bridge: easte bridge data.
  *      - AlienSpawner* alien_spawner: alien spawner data.
  */
-void show_mainwindow(BridgeData* west_bridge, BridgeData* central_bridge,
-                     BridgeData* east_bridge, AlienSpawner* alien_spawner);
+void show_mainwindow(Bridge* west_bridge, Bridge* central_bridge,
+                     Bridge* east_bridge, AlienSpawner* alien_spawner);
 
 /**
  * This function run an alien in a thread.
