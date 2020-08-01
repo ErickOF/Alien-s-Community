@@ -44,8 +44,8 @@ int main() {
     }
     
     //y_algorithm(&bridge);
-    survival_algorithm(&bridge);
-    //sem_algorithm(&bridge);
+    //survival_algorithm(&bridge);
+    sem_algorithm(&bridge);
 
     free(bridge.north_aliens);
     free(bridge.south_aliens);

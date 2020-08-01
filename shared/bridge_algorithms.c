@@ -2,7 +2,6 @@
 
 //***********************Y ALGORITHM****************************//
 void y_algorithm(Bridge *bridge) {
-    printf("Y algorithm \n");
 
     Lmutex_trylock(bridge->north_mutex);
     Lmutex_trylock(bridge->south_mutex);
@@ -65,7 +64,7 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
    printf("De N-S \n");
    Lmutex_unlock(bridge->south_mutex);
     
-    printf("Llamo a check \n");
+    //printf("Llamo a check \n");
     //short cross_allowed = check_zero_weight(bridge);
     //printf("cross_allowd %d \n", cross_allowed);
     //Check all aliens crossed to change direction
@@ -84,33 +83,34 @@ void cross_north_aliens(Bridge *bridge, int iterations, int max_index){
 
     for (int i = 0; i < iterations; i++){
         //Busy Waiting
-        short counter = 0;
-        short crossing = check_max_weight(bridge, bridge->north_aliens[0].weight);
-        while(crossing == 1){
-            crossing = check_max_weight(bridge, bridge->north_aliens[0].weight);
-            if (counter == 5){
-                break;
-            }
-            counter++;
-        }
+        //short counter = 0;
+        //short crossing = check_max_weight(bridge, bridge->north_aliens[0].weight);
+        //while(crossing == 1){
+            //crossing = check_max_weight(bridge, bridge->north_aliens[0].weight);
+           // if (counter == 5){
+           //     break;
+           // }
+           // counter++;
+    //}
         //An alien crossing
        // printf("Cruzando alien del norte \n");
-        bridge->north_aliens_number -= 1;
-        bridge->north_aliens[0].status = 1;
+            bridge->north_aliens_number -= 1;
+            bridge->north_aliens[0].status = 1;
 
-        Lmutex_trylock(bridge->curren_weight_mutex);
-       // printf("Aliens weight = %d \n", bridge->north_aliens[0].weight);
-        bridge->current_weight = bridge->current_weight + bridge->north_aliens[0].weight;
-       // printf("Peso del puente %d \n", bridge->current_weight);
-        Lmutex_unlock(bridge->curren_weight_mutex);
-            
-        //Move aliens in the list
-        for (int j = 0; j < max_index; j++) {                
-                bridge->north_aliens[j] = bridge->north_aliens[j + 1];
+            Lmutex_trylock(bridge->curren_weight_mutex);
+            printf("Aliens weight = %d \n", bridge->north_aliens[0].weight);
+            bridge->current_weight = bridge->current_weight + bridge->north_aliens[0].weight;
+            printf("Peso del puente %d \n", bridge->current_weight);
+            Lmutex_unlock(bridge->curren_weight_mutex);
+                
+            //Move aliens in the list
+            for (int j = 0; j < max_index; j++) {                
+                    bridge->north_aliens[j] = bridge->north_aliens[j + 1];
+            }
+            bridge->north_aliens[max_index] = alien;
+            Lmutex_unlock(bridge->north_mutex);
         }
-        bridge->north_aliens[max_index] = alien;
-    }
-    Lmutex_unlock(bridge->north_mutex);
+        
 }
 
 
@@ -134,24 +134,24 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
 
     for (int i = 0; i < iterations; i++){
         //Busy Waiting
-        short crossing = check_max_weight(bridge, bridge->south_aliens[0].weight);
-        short counter = 0;
-        while(crossing == 1){
-            crossing = check_max_weight(bridge, bridge->south_aliens[0].weight);
-            if(counter == 5){
-                break;
-            }
-            counter++;
-        }
+       // short crossing = check_max_weight(bridge, bridge->south_aliens[0].weight);
+        //short counter = 0;
+        //while(crossing == 1){
+            //crossing = check_max_weight(bridge, bridge->south_aliens[0].weight);
+           // if(counter == 5){
+           //     break;
+            //}
+           // counter++;
+       // }
         //An alien crossing
        // printf("Alien del sur cruzando \n");
         bridge->south_aliens_number -= 1;
         bridge->south_aliens[0].status = 1;
 
         Lmutex_trylock(bridge->curren_weight_mutex);
-       // printf("Aliens weight = %d \n", bridge->north_aliens[0].weight);
+        printf("Aliens weight = %d \n", bridge->north_aliens[0].weight);
         bridge->current_weight = bridge->current_weight + bridge->south_aliens[0].weight;
-        //printf("Peso del puente %d \n", bridge->current_weight);
+        printf("Peso del puente %d \n", bridge->current_weight);
         Lmutex_unlock(bridge->curren_weight_mutex);
 
         //Move aliens in the list
@@ -159,11 +159,12 @@ void cross_south_aliens(Bridge *bridge, int iterations, int max_index){
             bridge->south_aliens[j] = bridge->south_aliens[j + 1];
         }
         bridge->south_aliens[max_index] = alien;
-    }
-    Lmutex_unlock(bridge->south_mutex);
+        Lmutex_unlock(bridge->south_mutex);
+    
+    
 }
 
-
+}
 //***********************SEMAPHORE ALGORITHM****************************//
 void sem_algorithm(Bridge *bridge){
     printf("Semaphore Algorithm \n");
